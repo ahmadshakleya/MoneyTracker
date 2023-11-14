@@ -1,8 +1,8 @@
 package view.panels;
 
 import controller.RegistrationController;
-import employee.Person;
-import factory.EmployeeFactory;
+import person.Person;
+import factory.PersonFactory;
 
 import javax.swing.*;
 
@@ -27,8 +27,8 @@ public class RegistrationButtonPanel extends JPanel {
         this.checkOut = new JButton("Check Out");
 
         // Create your temporary person here
-        EmployeeFactory employeeFactory = new EmployeeFactory();
-        this.person = employeeFactory.getEmployee("Test", "Programmer");
+        PersonFactory personFactory = new PersonFactory();
+        this.person = personFactory.getPerson(1, "Test", "Programmer");
         addCheckInButtonActionListener();
         addCheckOutButtonActionListener();
 

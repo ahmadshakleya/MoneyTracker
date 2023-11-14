@@ -1,6 +1,6 @@
 package database;
 
-import employee.Person;
+import person.Person;
 import register_entry.RegisterEntry;
 
 import java.beans.PropertyChangeListener;

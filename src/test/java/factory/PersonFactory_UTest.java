@@ -1,7 +1,6 @@
 package factory;
 
-import employee.Person;
-import employee.Programmer;
+import person.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,7 +19,7 @@ public class PersonFactory_UTest {
 
     @Test
     public void t_getEmployee() throws Exception{
-        EmployeeFactory factoryUnderTest = spy(new EmployeeFactory());
+        PersonFactory factoryUnderTest = spy(new PersonFactory());
         String name = "Ahmad";
 
         Programmer mock_programmer = Mockito.mock(Programmer.class);

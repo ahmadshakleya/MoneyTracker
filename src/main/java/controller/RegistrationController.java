@@ -1,7 +1,7 @@
 package controller;
 
 import database.Database;
-import employee.Person;
+import person.Person;
 import register_entry.RegisterEntry;
 
 public class RegistrationController implements Controller

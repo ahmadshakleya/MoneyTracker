@@ -1,6 +1,6 @@
 package database;
 
-import employee.Person;
+import person.Person;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
 
@@ -36,7 +36,7 @@ public class RegistrationDB extends Database
         newValue.add(e.getName());
         newValue.add(re.toString());
         support.firePropertyChange("Entry: ", null, newValue); // newValue is a list: the first index
-                                                                                    // contains the name of the employee
+                                                                                    // contains the name of the person
                                                                                     // and the second index contains the entry.
     }
 

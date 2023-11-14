@@ -4,7 +4,7 @@ import controller.Controller;
 import controller.RegistrationController;
 import database.Database;
 import database.RegistrationDB;
-import employee.Person;
+import person.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
