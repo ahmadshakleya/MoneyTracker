@@ -1,11 +1,11 @@
 package employee;
 
-public class Employee
+public class Person
 {
     private String name;
     private String function;
 
-    public Employee(String name, String function)
+    public Person(String name, String function)
     {
         this.name = name;
         this.function = function;

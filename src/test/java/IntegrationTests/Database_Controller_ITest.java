@@ -4,7 +4,7 @@ import controller.Controller;
 import controller.RegistrationController;
 import database.Database;
 import database.RegistrationDB;
-import employee.Employee;
+import employee.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -33,14 +33,14 @@ public class Database_Controller_ITest {
     public void t_database_controller() throws Exception {
         Database dbUnderTest = spy(RegistrationDB.getInstance());
         Controller controllerUnderTest = new RegistrationController(dbUnderTest);
-        Employee mock_employee = Mockito.mock(Employee.class);
+        Person mock_person = Mockito.mock(Person.class);
 
         RegisterEntry mock_registerEntry = Mockito.mock(RegisterEntry.class);
         Mockito.when(mock_registerEntry.isCheckedIn()).thenReturn(true);
         PowerMockito.whenNew(RegisterEntry.class).withArguments(true).thenReturn(mock_registerEntry);
 
-        controllerUnderTest.checkIn(mock_employee);
-        Mockito.verify(dbUnderTest, Mockito.times(1)).addEntry(Mockito.eq(mock_employee),
+        controllerUnderTest.checkIn(mock_person);
+        Mockito.verify(dbUnderTest, Mockito.times(1)).addEntry(Mockito.eq(mock_person),
                                                                                       Mockito.any());
 
     }

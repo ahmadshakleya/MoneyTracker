@@ -1,6 +1,6 @@
 package employee;
 
-public class Manager extends Employee
+public class Manager extends Person
 {
     public Manager(String name)
     {

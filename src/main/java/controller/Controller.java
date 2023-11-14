@@ -1,9 +1,9 @@
 package controller;
 
-import employee.Employee;
+import employee.Person;
 
 public interface Controller
 {
-    void checkIn(Employee e);
-    void checkOut(Employee e);
+    void checkIn(Person e);
+    void checkOut(Person e);
 }

@@ -1,6 +1,6 @@
 package database;
 
-import employee.Employee;
+import employee.Person;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -41,14 +41,14 @@ public class RegistrationDB_UTest
         field.setAccessible(true);
 
         Database registrationDB_underTest = RegistrationDB.getInstance();
-        HashMap<Employee, RegisterEntry> mock_db = (HashMap<Employee, RegisterEntry>) Mockito.mock(HashMap.class);
+        HashMap<Person, RegisterEntry> mock_db = (HashMap<Person, RegisterEntry>) Mockito.mock(HashMap.class);
         field.set(registrationDB_underTest, mock_db);
 
-        Employee mockEmployee = Mockito.mock(Employee.class);
+        Person mockPerson = Mockito.mock(Person.class);
         RegisterEntry mockEntry = Mockito.mock(RegisterEntry.class);
 
-        registrationDB_underTest.addEntry(mockEmployee, mockEntry);
-        Mockito.verify(mock_db, Mockito.times(1)).put(mockEmployee, mockEntry);
+        registrationDB_underTest.addEntry(mockPerson, mockEntry);
+        Mockito.verify(mock_db, Mockito.times(1)).put(mockPerson, mockEntry);
     }
 
     @Test
@@ -58,14 +58,14 @@ public class RegistrationDB_UTest
         field.setAccessible(true);
 
         Database registrationDB_underTest = RegistrationDB.getInstance();
-        HashMap<Employee, RegisterEntry> mock_db = new HashMap<>();
+        HashMap<Person, RegisterEntry> mock_db = new HashMap<>();
         field.set(registrationDB_underTest, mock_db);
 
-        Employee mockEmployee = Mockito.mock(Employee.class);
+        Person mockPerson = Mockito.mock(Person.class);
         RegisterEntry mockRegisterEntry = Mockito.mock(RegisterEntry.class);
-        mock_db.put(mockEmployee, mockRegisterEntry);
+        mock_db.put(mockPerson, mockRegisterEntry);
 
-        RegisterEntry returnedEntry = registrationDB_underTest.getEntry(mockEmployee);
+        RegisterEntry returnedEntry = registrationDB_underTest.getEntry(mockPerson);
         Assert.assertEquals("Testing getEntry - should return mockObject", mockRegisterEntry, returnedEntry);
     }
 
@@ -76,15 +76,15 @@ public class RegistrationDB_UTest
         field.setAccessible(true);
 
         Database registrationDB_underTest = RegistrationDB.getInstance();
-        HashMap<Employee, RegisterEntry> mock_db = new HashMap<>();
+        HashMap<Person, RegisterEntry> mock_db = new HashMap<>();
         field.set(registrationDB_underTest, mock_db);
 
-        Employee mockEmployee = Mockito.mock(Employee.class);
+        Person mockPerson = Mockito.mock(Person.class);
         // Make sure the constructor for RegisterEntryNull is being mocked
         RegisterEntryNull mockRegisterEntry = Mockito.mock(RegisterEntryNull.class);
         PowerMockito.whenNew(RegisterEntryNull.class).withNoArguments().thenReturn(mockRegisterEntry);
 
-        RegisterEntry returnedEntry = registrationDB_underTest.getEntry(mockEmployee);
+        RegisterEntry returnedEntry = registrationDB_underTest.getEntry(mockPerson);
         Assert.assertEquals("Testing getEntry - should return mockObject", mockRegisterEntry, returnedEntry);
     }
 }

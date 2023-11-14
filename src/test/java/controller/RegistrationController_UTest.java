@@ -1,7 +1,7 @@
 package controller;
 
 import database.Database;
-import employee.Employee;
+import employee.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class RegistrationController_UTest
     {
         // Create mock objects for database and employee
         Database mock_db = Mockito.mock(Database.class);
-        Employee mock_employee = Mockito.mock(Employee.class);
+        Person mock_person = Mockito.mock(Person.class);
 
         // Make sure the constructor of RegisterEntry is mocked too
         RegisterEntry mock_registerEntry = Mockito.mock(RegisterEntry.class);
@@ -44,11 +44,11 @@ public class RegistrationController_UTest
         /*
             1. "new RegisterEntry" will return a mock object, carried out by 3 lines above
             2. The mocked database will be called, with method "addEntry"
-            3. Verify that the method "addEntry" got called, with the right arguments: (mock_employee, mock_registerEntry)
+            3. Verify that the method "addEntry" got called, with the right arguments: (mock_person, mock_registerEntry)
          */
         Controller controllerUnderTest = new RegistrationController(mock_db);
-        controllerUnderTest.checkIn(mock_employee);
-        Mockito.verify(mock_db, Mockito.times(1)).addEntry(mock_employee, mock_registerEntry);
+        controllerUnderTest.checkIn(mock_person);
+        Mockito.verify(mock_db, Mockito.times(1)).addEntry(mock_person, mock_registerEntry);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class RegistrationController_UTest
     {
         // Create mock objects for database and employee
         Database mock_db = Mockito.mock(Database.class);
-        Employee mock_employee = Mockito.mock(Employee.class);
+        Person mock_person = Mockito.mock(Person.class);
 
         // Make sure the constructor of RegisterEntry is mocked too
         RegisterEntry mock_registerEntry = Mockito.mock(RegisterEntry.class);
@@ -66,10 +66,10 @@ public class RegistrationController_UTest
         /*
             1. "new RegisterEntry" will return a mock object, carried out by 3 lines above
             2. The mocked database will be called, with method "addEntry"
-            3. Verify that the method "addEntry" got called, with the right arguments: (mock_employee, mock_registerEntry)
+            3. Verify that the method "addEntry" got called, with the right arguments: (mock_person, mock_registerEntry)
          */
         Controller controllerUnderTest = new RegistrationController(mock_db);
-        controllerUnderTest.checkOut(mock_employee);
-        Mockito.verify(mock_db, Mockito.times(1)).addEntry(mock_employee, mock_registerEntry);
+        controllerUnderTest.checkOut(mock_person);
+        Mockito.verify(mock_db, Mockito.times(1)).addEntry(mock_person, mock_registerEntry);
     }
 }

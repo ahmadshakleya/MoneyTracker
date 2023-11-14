@@ -1,7 +1,7 @@
 package controller;
 
 import database.Database;
-import employee.Employee;
+import employee.Person;
 import register_entry.RegisterEntry;
 
 public class RegistrationController implements Controller
@@ -14,14 +14,14 @@ public class RegistrationController implements Controller
     }
 
     @Override
-    public void checkIn(Employee e)
+    public void checkIn(Person e)
     {
         RegisterEntry entry = new RegisterEntry(true);
         db.addEntry(e, entry);
     }
 
     @Override
-    public void checkOut(Employee e)
+    public void checkOut(Person e)
     {
         RegisterEntry entry = new RegisterEntry(false);
         db.addEntry(e, entry);

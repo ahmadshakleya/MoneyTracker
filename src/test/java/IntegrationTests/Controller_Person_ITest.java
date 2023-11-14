@@ -3,15 +3,15 @@ package IntegrationTests;
 import controller.Controller;
 import controller.RegistrationController;
 import database.Database;
-import employee.Employee;
+import employee.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import register_entry.RegisterEntry;
 
-public class Controller_Employee_ITest {
-    public Controller_Employee_ITest() {
+public class Controller_Person_ITest {
+    public Controller_Person_ITest() {
     }
 
     @Before
@@ -30,14 +30,14 @@ public class Controller_Employee_ITest {
     public void t_controller_employee() throws Exception{
         Database mock_db = Mockito.mock(Database.class);
         Controller controllerUnderTest = new RegistrationController(mock_db);
-        Employee employeeUnderTest = new Employee("Ahmad", "Programmer");
+        Person personUnderTest = new Person("Ahmad", "Programmer");
 
         RegisterEntry mock_registerentry = Mockito.mock(RegisterEntry.class);
         Mockito.when(mock_registerentry.isCheckedIn()).thenReturn(true);
         PowerMockito.whenNew(RegisterEntry.class).withArguments(true).thenReturn(mock_registerentry);
 
-        controllerUnderTest.checkIn(employeeUnderTest);
-        Mockito.verify(mock_db, Mockito.times(1)).addEntry(Mockito.eq(employeeUnderTest), Mockito.any());
+        controllerUnderTest.checkIn(personUnderTest);
+        Mockito.verify(mock_db, Mockito.times(1)).addEntry(Mockito.eq(personUnderTest), Mockito.any());
 
     }
 }

@@ -1,8 +1,7 @@
 package view.panels;
 
 import controller.RegistrationController;
-import employee.Employee;
-import employee.Programmer;
+import employee.Person;
 import factory.EmployeeFactory;
 
 import javax.swing.*;
@@ -15,9 +14,9 @@ public class RegistrationButtonPanel extends JPanel {
     // Get your controller in this private field
     private RegistrationController controller;
 
-    // For now, just make a new employee in this class via your factory.
+    // For now, just make a new person in this class via your factory.
     // You can change this later on to a more unified way
-    private Employee employee;
+    private Person person;
 
     // Get your controller in this class via the constructor
     public RegistrationButtonPanel(RegistrationController controller)
@@ -27,9 +26,9 @@ public class RegistrationButtonPanel extends JPanel {
         this.checkIn = new JButton("Check In");
         this.checkOut = new JButton("Check Out");
 
-        // Create your temporary employee here
+        // Create your temporary person here
         EmployeeFactory employeeFactory = new EmployeeFactory();
-        this.employee = employeeFactory.getEmployee("Test", "Programmer");
+        this.person = employeeFactory.getEmployee("Test", "Programmer");
         addCheckInButtonActionListener();
         addCheckOutButtonActionListener();
 
@@ -45,7 +44,7 @@ public class RegistrationButtonPanel extends JPanel {
         this.checkIn.addActionListener(listener ->
         {
             // Insert here your controller functionality
-            controller.checkIn(employee);
+            controller.checkIn(person);
         });
     }
 
@@ -54,7 +53,7 @@ public class RegistrationButtonPanel extends JPanel {
         this.checkOut.addActionListener(listener ->
         {
             // Insert here your controller functionality
-            controller.checkOut(employee);
+            controller.checkOut(person);
         });
     }
 

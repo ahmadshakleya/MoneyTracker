@@ -1,15 +1,10 @@
-import controller.Controller;
 import controller.RegistrationController;
 import database.Database;
 import database.RegistrationDB;
-import employee.CustomerService;
-import employee.Employee;
-import employee.Manager;
-import employee.Programmer;
+import employee.Person;
 import factory.EmployeeFactory;
 import observers.DatabaseObserver;
 import observers.EntryObserver;
-import register_entry.RegisterEntry;
 import view.ViewFrame;
 
 public class Main
@@ -43,9 +38,9 @@ public class Main
         timedb.addObserver(view);
 
         // Replace with your own employee creation methods
-        Employee e1 = factory.getEmployee("Alice", "Programmer");
-        Employee e2 = factory.getEmployee("Bob", "CustomerService");
-        Employee e3 = factory.getEmployee("Charlie", "Manager");
+        Person e1 = factory.getEmployee("Alice", "Programmer");
+        Person e2 = factory.getEmployee("Bob", "CustomerService");
+        Person e3 = factory.getEmployee("Charlie", "Manager");
 
         sleep(3000);
 

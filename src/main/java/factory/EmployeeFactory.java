@@ -1,12 +1,12 @@
 package factory;
 
 import employee.CustomerService;
-import employee.Employee;
+import employee.Person;
 import employee.Manager;
 import employee.Programmer;
 
 public class EmployeeFactory {
-    public Employee getEmployee(String name, String function) {
+    public Person getEmployee(String name, String function) {
         switch (function) {
             case "Programmer":
                 return new Programmer(name);
@@ -15,7 +15,7 @@ public class EmployeeFactory {
             case "CustomerService":
                 return new CustomerService(name);
             default:
-                return new Employee(name, function);
+                return new Person(name, function);
         }
 
     }

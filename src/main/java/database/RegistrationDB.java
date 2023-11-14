@@ -1,6 +1,6 @@
 package database;
 
-import employee.Employee;
+import employee.Person;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
 
@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class RegistrationDB extends Database
 {
-    private final HashMap<Employee, RegisterEntry> db;
+    private final HashMap<Person, RegisterEntry> db;
 
     // Static variable to hold the single instance
     private static RegistrationDB instance;
@@ -29,7 +29,7 @@ public class RegistrationDB extends Database
     }
 
     @Override
-    public void addEntry(Employee e, RegisterEntry re)
+    public void addEntry(Person e, RegisterEntry re)
     {
         this.db.put(e, re);
         ArrayList<String> newValue = new ArrayList<>();
@@ -41,7 +41,7 @@ public class RegistrationDB extends Database
     }
 
     @Override
-    public RegisterEntry getEntry(Employee e)
+    public RegisterEntry getEntry(Person e)
     {
         return this.db.getOrDefault(e, new RegisterEntryNull());
     }
