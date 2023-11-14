@@ -1,8 +1,8 @@
 import controller.RegistrationController;
 import database.Database;
 import database.RegistrationDB;
-import employee.Person;
-import factory.EmployeeFactory;
+import person.Person;
+import factory.PersonFactory;
 import observers.DatabaseObserver;
 import observers.EntryObserver;
 import view.ViewFrame;
@@ -25,7 +25,7 @@ public class Main
         // Replace with your own objects
         Database timedb = RegistrationDB.getInstance();
         RegistrationController register= new RegistrationController(timedb);
-        EmployeeFactory factory = new EmployeeFactory();
+        PersonFactory factory = new PersonFactory();
 
         ViewFrame view = new ViewFrame(register);
         view.initialize();
@@ -37,10 +37,10 @@ public class Main
         timedb.addObserver(printUpdated);
         timedb.addObserver(view);
 
-        // Replace with your own employee creation methods
-        Person e1 = factory.getEmployee("Alice", "Programmer");
-        Person e2 = factory.getEmployee("Bob", "CustomerService");
-        Person e3 = factory.getEmployee("Charlie", "Manager");
+        // Replace with your own person creation methods
+        Person e1 = factory.getPerson(1, "Alice", "Programmer");
+        Person e2 = factory.getPerson(2, "Bob", "CustomerService");
+        Person e3 = factory.getPerson(3, "Charlie", "Manager");
 
         sleep(3000);
 

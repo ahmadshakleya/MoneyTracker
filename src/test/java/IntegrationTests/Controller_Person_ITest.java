@@ -3,7 +3,7 @@ package IntegrationTests;
 import controller.Controller;
 import controller.RegistrationController;
 import database.Database;
-import employee.Person;
+import person.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,7 +20,7 @@ public class Controller_Person_ITest {
     }
 
     /**
-     * This function tests the interaction between the controller and the employee.
+     * This function tests the interaction between the controller and the person.
      * Note that there is a problem when mocking RegisterEntry:
      * the mock constructor returns a mock object but the checkIn method of the RegistrationController uses the real constructor
      * I solved this my omitting the second argument of addEntry for the verification.

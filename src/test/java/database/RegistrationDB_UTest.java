@@ -1,6 +1,6 @@
 package database;
 
-import employee.Person;
+import person.Person;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;

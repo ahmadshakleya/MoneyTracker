@@ -1,7 +1,7 @@
 package controller;
 
 import database.Database;
-import employee.Person;
+import person.Person;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ public class RegistrationController_UTest
     @Test
     public void t_checkIn() throws Exception
     {
-        // Create mock objects for database and employee
+        // Create mock objects for database and person
         Database mock_db = Mockito.mock(Database.class);
         Person mock_person = Mockito.mock(Person.class);
 
@@ -54,7 +54,7 @@ public class RegistrationController_UTest
     @Test
     public void t_checkOut() throws Exception
     {
-        // Create mock objects for database and employee
+        // Create mock objects for database and person
         Database mock_db = Mockito.mock(Database.class);
         Person mock_person = Mockito.mock(Person.class);
 
