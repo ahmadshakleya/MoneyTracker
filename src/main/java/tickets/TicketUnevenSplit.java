@@ -4,13 +4,8 @@ import person.Person;
 
 import java.util.AbstractMap;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-public class TicketEvenSplit implements ITicket{
-
-    double total;
-
+public class TicketUnevenSplit implements ITicket{
     /**
      * Lijst van terugbetalingen per persoon.
      * SimpleEntry.getKey() voor de naam te krijgen
@@ -18,14 +13,19 @@ public class TicketEvenSplit implements ITicket{
      */
     List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
 
-    TicketEvenSplit(double total, Set<Person> people){
-        this.total = total;
-        Double terugbetalingPerPersoon = total / people.size();
-        terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
+    TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen){
+        this.terugbetaling = terugbetalingen;
     }
+
 
     @Override
     public double getTotal() {
+        double total = 0;
+
+        for (AbstractMap.SimpleEntry<Person, Double> people: terugbetaling){
+            total += people.getValue();
+        }
+
         return total;
     }
 

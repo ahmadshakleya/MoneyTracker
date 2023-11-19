@@ -1,6 +1,6 @@
 package tickets;
 
-import employee.Person;
+import person.Person;
 import jdk.internal.util.xml.impl.Pair;
 
 import java.util.AbstractMap;
