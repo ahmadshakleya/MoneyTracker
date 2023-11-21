@@ -7,12 +7,19 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import java.util.stream.Stream;
+
 
 import person.Person;
-import register_entry.RegisterEntry;
+
+
+import person.Person;
+import tickets.TicketEvenSplit;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.powermock.api.mockito.PowerMockito.spy;
 
 // Run with PowerMock, an extended version of Mockito
 @RunWith(PowerMockRunner.class)
@@ -47,14 +54,19 @@ public class TicketsEvenSplit_UTest {
         Mockito.when(mock_Person3.getFirstName()).thenReturn("Hu");
         Mockito.when(mock_Person3.getLastName()).thenReturn("Man");
 
+
+
         mock_People.add(mock_Person1);
         mock_People.add(mock_Person2);
         mock_People.add(mock_Person3);
 
-        TicketEvenSplit ticketEvenSplit = new TicketEvenSplit(100, mock_People);
+        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(100.0, mock_People);
 
         double expectedTotal = 100;
-        assert expectedTotal == ticketEvenSplit.getTotal();
+
+        double ansTotal = ticketUnderTest.getTotal();
+
+        assert ansTotal == expectedTotal;
     }
 
 
