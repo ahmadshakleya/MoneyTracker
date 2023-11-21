@@ -33,7 +33,7 @@ public class RegistrationDB extends Database
     {
         this.db.put(e, re);
         ArrayList<String> newValue = new ArrayList<>();
-        newValue.add(e.getName());
+        newValue.add(e.getFirstName()); // %TODO did was "newValue.add(e.getName());", tijdlijk gefixed zodat ik kon verder werken
         newValue.add(re.toString());
         support.firePropertyChange("Entry: ", null, newValue); // newValue is a list: the first index
                                                                                     // contains the name of the person

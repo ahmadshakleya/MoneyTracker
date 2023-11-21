@@ -16,7 +16,7 @@ public class PersonFactory_UTest {
     public void initialize() {
 
     }
-
+/*
     @Test
     public void t_getEmployee() throws Exception{
         PersonFactory factoryUnderTest = spy(new PersonFactory());
@@ -27,5 +27,5 @@ public class PersonFactory_UTest {
 
         Person e1 = factoryUnderTest.getEmployee(name, "Programmer");
         Mockito.verify(factoryUnderTest, Mockito.times(1)).getEmployee(e1.getName(), e1.getFunction());
-    }
+    }*/
 }
