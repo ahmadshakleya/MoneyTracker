@@ -4,6 +4,7 @@ import person.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Trip {
     private String tripName;
@@ -41,10 +42,12 @@ public class Trip {
      */
     public void calculateOwedAmounts() {
         int totalParticipants = participants.size();
-        double eachShare = totalExpenses / totalParticipants;
+        double totalExpensesPaid = participants.stream().mapToDouble(Person::getExpensesPaid).sum();
+        double eachShare = totalExpensesPaid / totalParticipants;
 
         for (Person participant : participants) {
-            participant.setAmountOwed(eachShare - participant.getExpensesPaid());
+            double amountOwed = eachShare - participant.getExpensesPaid();
+            participant.setAmountOwed(amountOwed);
         }
     }
 
@@ -60,5 +63,13 @@ public class Trip {
 
     private static int generateTripID() {
         return ++tripID;
+    }
+
+    public List<Person> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Person> participants) {
+        this.participants = participants;
     }
 }
