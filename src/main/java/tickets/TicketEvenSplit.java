@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 public class TicketEvenSplit implements ITicket{
 
     double total;
+    String description;
 
     /**
      * Lijst van terugbetalingen per persoon.
@@ -24,6 +25,19 @@ public class TicketEvenSplit implements ITicket{
         this.total = total;
         Double terugbetalingPerPersoon = total / people.size();
         terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
+        this.description = "NO DESCRIPTION";
+    }
+
+    public TicketEvenSplit(double total, Set<Person> people, String description){
+        this.total = total;
+        Double terugbetalingPerPersoon = total / people.size();
+        terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
+        this.description = description;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override
