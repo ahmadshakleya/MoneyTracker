@@ -6,6 +6,8 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TicketEvenSplit implements ITicket{
 
@@ -18,7 +20,7 @@ public class TicketEvenSplit implements ITicket{
      */
     List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
 
-    TicketEvenSplit(double total, Set<Person> people){
+    public TicketEvenSplit(double total, Set<Person> people){
         this.total = total;
         Double terugbetalingPerPersoon = total / people.size();
         terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
