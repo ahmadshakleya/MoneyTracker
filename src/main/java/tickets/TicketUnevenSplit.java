@@ -4,8 +4,13 @@ import person.Person;
 
 import java.util.AbstractMap;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TicketUnevenSplit implements ITicket{
+
+    String description;
+
     /**
      * Lijst van terugbetalingen per persoon.
      * SimpleEntry.getKey() voor de naam te krijgen
@@ -15,6 +20,16 @@ public class TicketUnevenSplit implements ITicket{
 
     TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen){
         this.terugbetaling = terugbetalingen;
+    }
+
+    public TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen, String description){
+        this.terugbetaling = terugbetalingen;
+        this.description = description;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
 
