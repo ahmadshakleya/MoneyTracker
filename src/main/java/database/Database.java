@@ -6,7 +6,7 @@ import register_entry.RegisterEntry;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class Database
+public abstract class Database<T>
 {
     protected PropertyChangeSupport support;
 
@@ -15,8 +15,8 @@ public abstract class Database
         support = new PropertyChangeSupport(this);
     }
 
-    public abstract void addEntry(Person e, RegisterEntry re);
-    public abstract RegisterEntry getEntry(Person e);
+    public abstract void addEntry(T entry);
+    public abstract T getEntry(Person e);
 
     public void addObserver(PropertyChangeListener listener){
         support.addPropertyChangeListener(listener);

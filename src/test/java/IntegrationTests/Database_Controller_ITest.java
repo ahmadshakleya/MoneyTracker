@@ -3,7 +3,7 @@ package IntegrationTests;
 import controller.Controller;
 import controller.RegistrationController;
 import database.Database;
-import database.RegistrationDB;
+import database.TicketsDB;
 import person.Person;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class Database_Controller_ITest {
      */
     @Test
     public void t_database_controller() throws Exception {
-        Database dbUnderTest = spy(RegistrationDB.getInstance());
+        Database dbUnderTest = spy(TicketsDB.getInstance());
         Controller controllerUnderTest = new RegistrationController(dbUnderTest);
         Person mock_person = Mockito.mock(Person.class);
 

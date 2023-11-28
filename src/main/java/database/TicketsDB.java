@@ -3,35 +3,36 @@ package database;
 import person.Person;
 import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
+import tickets.ITicket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RegistrationDB extends Database
+public class TicketsDB extends Database
 {
-    private final HashMap<Person, RegisterEntry> db;
+    private final HashMap<Person, ITicket> db;
 
     // Static variable to hold the single instance
-    private static RegistrationDB instance;
+    private static TicketsDB instance;
 
     // Private constructor to prevent instantiation
-    private RegistrationDB()
+    private TicketsDB()
     {
         this.db = new HashMap<>();
     }
 
     // Static method to get the instance
-    public static RegistrationDB getInstance() {
+    public static TicketsDB getInstance() {
         if (instance == null){
-            instance = new RegistrationDB();
+            instance = new TicketsDB();
         }
         return instance;
     }
 
     @Override
-    public void addEntry(Person e, RegisterEntry re)
+    public void addEntry(Person e, ITicket ticket)
     {
-        this.db.put(e, re);
+        this.db.put(e, ticket);
         ArrayList<String> newValue = new ArrayList<>();
         newValue.add(e.getFirstName()); // %TODO did was "newValue.add(e.getName());", tijdlijk gefixed zodat ik kon verder werken
         newValue.add(re.toString());

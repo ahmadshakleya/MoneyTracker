@@ -19,10 +19,10 @@ import java.util.HashMap;
 // Run with PowerMock, an extended version of Mockito
 @RunWith(PowerMockRunner.class)
 // Prepare class RegistrationController for testing by injecting mocks
-@PrepareForTest(RegistrationDB.class)
-public class RegistrationDB_UTest
+@PrepareForTest(TicketsDB.class)
+public class TicketsDB_UTest
 {
-    public RegistrationDB_UTest()
+    public TicketsDB_UTest()
     {
 
     }
@@ -37,10 +37,10 @@ public class RegistrationDB_UTest
     @SuppressWarnings("unchecked")
     public void t_addEntry() throws NoSuchFieldException, IllegalAccessException
     {
-        Field field = RegistrationDB.class.getDeclaredField("db");
+        Field field = TicketsDB.class.getDeclaredField("db");
         field.setAccessible(true);
 
-        Database registrationDB_underTest = RegistrationDB.getInstance();
+        Database registrationDB_underTest = TicketsDB.getInstance();
         HashMap<Person, RegisterEntry> mock_db = (HashMap<Person, RegisterEntry>) Mockito.mock(HashMap.class);
         field.set(registrationDB_underTest, mock_db);
 
@@ -54,10 +54,10 @@ public class RegistrationDB_UTest
     @Test
     public void t_getEntry_NoDefault() throws NoSuchFieldException, IllegalAccessException
     {
-        Field field = RegistrationDB.class.getDeclaredField("db");
+        Field field = TicketsDB.class.getDeclaredField("db");
         field.setAccessible(true);
 
-        Database registrationDB_underTest = RegistrationDB.getInstance();
+        Database registrationDB_underTest = TicketsDB.getInstance();
         HashMap<Person, RegisterEntry> mock_db = new HashMap<>();
         field.set(registrationDB_underTest, mock_db);
 
@@ -72,10 +72,10 @@ public class RegistrationDB_UTest
     @Test
     public void t_getEntry_Default() throws Exception
     {
-        Field field = RegistrationDB.class.getDeclaredField("db");
+        Field field = TicketsDB.class.getDeclaredField("db");
         field.setAccessible(true);
 
-        Database registrationDB_underTest = RegistrationDB.getInstance();
+        Database registrationDB_underTest = TicketsDB.getInstance();
         HashMap<Person, RegisterEntry> mock_db = new HashMap<>();
         field.set(registrationDB_underTest, mock_db);
 

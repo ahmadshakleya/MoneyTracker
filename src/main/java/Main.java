@@ -1,6 +1,6 @@
 import controller.RegistrationController;
 import database.Database;
-import database.RegistrationDB;
+import database.TicketsDB;
 import person.Person;
 import factory.PersonFactory;
 import observers.DatabaseObserver;
@@ -23,7 +23,7 @@ public class Main
     public void run()
     {
         // Replace with your own objects
-        Database timedb = RegistrationDB.getInstance();
+        Database timedb = TicketsDB.getInstance();
         RegistrationController register= new RegistrationController(timedb);
         PersonFactory factory = new PersonFactory();
 
