@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 
 public class TicketEvenSplit implements ITicket{
 
-    double total;
-    String description;
-    boolean isPaid = false;
-    private int hours;
-    private int minutes;
-    private int seconds;
+    private double total;
+    private String description;
+    private boolean isPaid = false;
+    private final int hours;
+    private final int minutes;
+    private final int seconds;
 
     /**
      * Lijst van terugbetalingen per persoon.
