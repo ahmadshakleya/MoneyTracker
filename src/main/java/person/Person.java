@@ -1,5 +1,7 @@
 package person;
 
+import exceptions.NegativeNumberException;
+
 public class Person {
     private static int ClassID = 0;
     private int ID;
@@ -70,7 +72,11 @@ Remove the calculateAmountOwed method from the Person class, as it couples
 the logic of debt calculation with the person entity.
 This separation adheres more to the principle of single responsibility.
      */
-    public double calculateAmountOwed(double totalExpenses, int totalParticipants) {
+    public double calculateAmountOwed(double totalExpenses, int totalParticipants) throws NegativeNumberException {
+        if(totalParticipants <= 0 || totalExpenses < 0) {
+            throw new NegativeNumberException("Invalid totalExpenses or totalParticipants");
+        }
+
         double eachShare = totalExpenses / totalParticipants;
         return eachShare - this.expensesPaid;
     }

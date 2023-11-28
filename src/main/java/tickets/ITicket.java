@@ -11,5 +11,5 @@ public interface ITicket {
     abstract double getTotal();
     abstract List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson();
     abstract boolean getIsPaid();
-    abstract boolean setIsPaid();
+    abstract void setIsPaid(boolean isPaid);
 }

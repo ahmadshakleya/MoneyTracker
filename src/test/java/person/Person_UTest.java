@@ -1,5 +1,6 @@
 package person;
 
+import exceptions.NegativeNumberException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +58,7 @@ public class Person_UTest {
     }
 
     @Test
-    public void testCalculateAmountOwed() {
+    public void testCalculateAmountOwed() throws NegativeNumberException {
         Person person = new Person("John", "Doe");
         double totalExpenses = 200.0;
         int totalParticipants = 4;

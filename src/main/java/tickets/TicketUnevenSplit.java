@@ -56,7 +56,7 @@ public class TicketUnevenSplit implements ITicket{
     }
 
     @Override
-    public boolean setIsPaid() {
-        return isPaid;
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
     }
 }

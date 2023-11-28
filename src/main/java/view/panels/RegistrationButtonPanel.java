@@ -23,8 +23,8 @@ public class RegistrationButtonPanel extends JPanel {
     {
         this.controller = controller;
         JLabel label = new JLabel("Registration buttons");
-        this.checkIn = new JButton("Check In");
-        this.checkOut = new JButton("Check Out");
+        this.checkIn = new JButton("Add ticket");
+        this.checkOut = new JButton("Remove ticket"); // Misschien gaan we dit automatisch doen, als een ticket is betaald.
 
         // Create your temporary person here
         PersonFactory personFactory = new PersonFactory();
