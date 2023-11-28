@@ -41,14 +41,14 @@ public class Person_UTest {
     }
 
     @Test
-    public void testAddExpense() {
+    public void testAddExpense() throws NegativeNumberException {
         Person person = new Person("John", "Doe");
         person.addExpense(50.0);
         Assert.assertEquals(50.0, person.getExpensesPaid(), 0.001);
     }
 
     @Test
-    public void testResetExpensesAndAmountOwed() {
+    public void testResetExpensesAndAmountOwed() throws NegativeNumberException {
         Person person = new Person("John", "Doe");
         person.addExpense(50.0);
         person.setAmountOwed(20.0);

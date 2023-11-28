@@ -49,11 +49,17 @@ public class Person {
         return amountOwed;
     }
 
-    public void setAmountOwed(double amountOwed) {
+    public void setAmountOwed(double amountOwed) throws NegativeNumberException {
+        if (amountOwed < 0) {
+            throw new NegativeNumberException("Invalid amount " + amountOwed);
+        }
         this.amountOwed = amountOwed;
     }
 
-    public void addExpense(double expense) {
+    public void addExpense(double expense) throws NegativeNumberException {
+        if (expense < 0) {
+            throw new NegativeNumberException("Invalid expense " + expense);
+        }
         this.expensesPaid += expense;
     }
 
