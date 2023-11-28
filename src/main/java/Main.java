@@ -5,7 +5,11 @@ import person.Person;
 import factory.PersonFactory;
 import observers.DatabaseObserver;
 import observers.EntryObserver;
+import tickets.TicketEvenSplit;
 import view.ViewFrame;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main
 {
@@ -23,8 +27,11 @@ public class Main
     public void run()
     {
         // Replace with your own objects
-        Database timedb = TicketsDB.getInstance();
-        RegistrationController register= new RegistrationController(timedb);
+        TicketsDB db = TicketsDB.getInstance();
+        Set<Person> test = new HashSet<>();
+        test.add(new Person("tester", "tester"));
+        db.addEntry(db.test, new TicketEvenSplit(100, test));
+        /*RegistrationController register= new RegistrationController(timedb);
         PersonFactory factory = new PersonFactory();
 
         ViewFrame view = new ViewFrame(register);
@@ -53,7 +60,7 @@ public class Main
         sleep(1000);
         register.checkOut(e2);
         sleep(1000);
-        register.checkOut(e3);
+        register.checkOut(e3);*/
     }
 
     public void sleep(int millis)

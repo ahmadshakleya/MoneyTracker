@@ -8,30 +8,28 @@ import tickets.ITicket;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 
-public class TicketsDB
+public class PersonDB
 {
-    private final HashMap<Person, ArrayList<ITicket>> db;
+    private final Set<Person> db;
 
     // Static variable to hold the single instance
     private static TicketsDB instance;
     protected PropertyChangeSupport support;
 
     // Private constructor to prevent instantiation
-    private TicketsDB()
+    private PersonDB()
     {
         support = new PropertyChangeSupport(this);
-        this.db = new HashMap<>();
+        this.db = new HashSet<>();
     }
 
     // Static method to get the instance
-    public static TicketsDB getInstance() {
+    public static PersonDB getInstance() {
         if (instance == null){
-            instance = new TicketsDB();
+            instance = new PersonDB();
         }
         return instance;
     }

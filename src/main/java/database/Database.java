@@ -1,4 +1,4 @@
-package database;
+/*package database;
 
 import person.Person;
 import register_entry.RegisterEntry;
@@ -26,3 +26,4 @@ public abstract class Database<T>
         support.removePropertyChangeListener(listener);
     }
 }
+*/
