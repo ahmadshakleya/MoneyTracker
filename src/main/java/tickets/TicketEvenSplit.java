@@ -13,6 +13,7 @@ public class TicketEvenSplit implements ITicket{
 
     double total;
     String description;
+    boolean isPaid = false;
 
     /**
      * Lijst van terugbetalingen per persoon.
@@ -48,5 +49,15 @@ public class TicketEvenSplit implements ITicket{
     @Override
     public List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson() {
         return terugbetaling;
+    }
+
+    @Override
+    public boolean getIsPaid() {
+        return isPaid;
+    }
+
+    @Override
+    public boolean setIsPaid() {
+        return isPaid;
     }
 }

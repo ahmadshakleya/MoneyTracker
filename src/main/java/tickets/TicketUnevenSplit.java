@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class TicketUnevenSplit implements ITicket{
 
     String description;
+    boolean isPaid = false;
 
     /**
      * Lijst van terugbetalingen per persoon.
@@ -47,5 +48,15 @@ public class TicketUnevenSplit implements ITicket{
     @Override
     public List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson() {
         return terugbetaling;
+    }
+
+    @Override
+    public boolean getIsPaid() {
+        return isPaid;
+    }
+
+    @Override
+    public boolean setIsPaid() {
+        return isPaid;
     }
 }

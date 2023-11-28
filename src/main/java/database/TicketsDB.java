@@ -5,12 +5,13 @@ import register_entry.RegisterEntry;
 import register_entry.RegisterEntryNull;
 import tickets.ITicket;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TicketsDB extends Database
+public class TicketsDB extends Database<ITicket>
 {
-    private final HashMap<Person, ITicket> db;
+    private final HashMap<Person, ArrayList<ITicket>> db;
 
     // Static variable to hold the single instance
     private static TicketsDB instance;
@@ -19,6 +20,15 @@ public class TicketsDB extends Database
     private TicketsDB()
     {
         this.db = new HashMap<>();
+    }
+
+    @Override
+    public void addEntry(ITicket... entry) {
+        if (entry.length == 2 && entry[0] instanceof Person && entry[1] instanceof ITicket){
+            db.get(entry[0]).add(entry[1]);
+        } else {
+            throw new IllegalArgumentException("Invalid arguments for TicketDB addEntry");
+        }
     }
 
     // Static method to get the instance

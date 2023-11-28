@@ -15,7 +15,7 @@ public abstract class Database<T>
         support = new PropertyChangeSupport(this);
     }
 
-    public abstract void addEntry(T entry);
+    public abstract void addEntry(T... entry);
     public abstract T getEntry(Person e);
 
     public void addObserver(PropertyChangeListener listener){
