@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class TicketsDBController {
     private final TicketsDB ticketsDB;
 
-    public TicketsDBController() {
-        this.ticketsDB = TicketsDB.getInstance();
+    public TicketsDBController(TicketsDB ticketsDB) {
+        this.ticketsDB = ticketsDB;
     }
 
     public void addTicket(Person person, ITicket ticket) {
