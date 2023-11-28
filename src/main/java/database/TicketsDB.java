@@ -36,14 +36,17 @@ public class TicketsDB
         return instance;
     }
 
-    public void addEntry(Person person, ITicket ticket)
-    {
-        db.get(person).add(ticket);
+    public void addEntry(Person person, ITicket ticket) {
+        ArrayList<ITicket> ticketsForPerson = db.get(person);
+        if (ticketsForPerson == null) {
+            ticketsForPerson = new ArrayList<>();
+            db.put(person, ticketsForPerson);
+        }
+        ticketsForPerson.add(ticket);
+
         ArrayList<String> newValue = new ArrayList<>();
         newValue.add(person.getFirstName());
-        support.firePropertyChange("Entry: ", newValue, ticket); // Persoon en Ticket
-
-
+        support.firePropertyChange("Entry: ", newValue, ticket);
     }
 
     public ArrayList<ITicket> getEntry(Person person)

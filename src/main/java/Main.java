@@ -1,8 +1,10 @@
+import TicketsDBController.TicketsDBController;
 import database.TicketsDB;
 import person.Person;
 import factory.PersonFactory;
 import observers.DatabaseObserver;
 import observers.EntryObserver;
+import tickets.ITicket;
 import tickets.TicketEvenSplit;
 
 import java.util.HashSet;
@@ -23,12 +25,32 @@ public class Main
 
     public void run()
     {
+        TicketsDB ticketsDB = TicketsDB.getInstance();
+        TicketsDBController tickets_register = new TicketsDBController(ticketsDB);
+        Person person1 = new Person("Ahmad", "Shakleya");
+        Person person2 = new Person("Berkay", "Yildirim");
+
+        EntryObserver printEntry = new EntryObserver();
+        DatabaseObserver printUpdated = new DatabaseObserver();
+        ticketsDB.addObserver(printEntry);
+        ticketsDB.addObserver(printUpdated);
+
+        sleep(3000);
+
+        Set<Person> participants = new HashSet<>();
+        participants.add(person1);
+        participants.add(person2);
+        ITicket ticket = new TicketEvenSplit(20, participants);
+
+        tickets_register.addTicket(person1, ticket);
+        //tickets_register.addTicket(person2, ticket);
+
         // Replace with your own objects
-        Person test1 = new Person("a", "b");
+        /*Person test1 = new Person("a", "b");
         Person test2 = new Person("aaa", "bbbb");
 
         System.out.println(test1.getID());
-        System.out.println(test2.getID());
+        System.out.println(test2.getID());*/
         /*RegistrationController register= new RegistrationController(timedb);
         PersonFactory factory = new PersonFactory();
 
