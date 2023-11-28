@@ -1,4 +1,4 @@
-/*package database;
+/*package database; %TODO DELEEEEEET
 
 import person.Person;
 import register_entry.RegisterEntry;
@@ -27,3 +27,4 @@ public abstract class Database<T>
     }
 }
 */
+

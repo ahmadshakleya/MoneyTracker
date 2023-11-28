@@ -3,15 +3,18 @@ package tickets;
 import person.Person;
 
 import java.util.AbstractMap;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TicketUnevenSplit implements ITicket{
 
-    String description;
-    boolean isPaid = false;
-
+    private String description;
+    private boolean isPaid = false;
+    private final int hours;
+    private final int minutes;
+    private final int seconds;
     /**
      * Lijst van terugbetalingen per persoon.
      * SimpleEntry.getKey() voor de naam te krijgen
@@ -19,13 +22,23 @@ public class TicketUnevenSplit implements ITicket{
      */
     List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
 
-    TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen){
+    public TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen){
         this.terugbetaling = terugbetalingen;
+
+        Calendar calendar = Calendar.getInstance();
+        this.hours = calendar.get(Calendar.HOUR_OF_DAY);
+        this.minutes = calendar.get(Calendar.MINUTE);
+        this.seconds = calendar.get(Calendar.SECOND);
     }
 
     public TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen, String description){
         this.terugbetaling = terugbetalingen;
         this.description = description;
+
+        Calendar calendar = Calendar.getInstance();
+        this.hours = calendar.get(Calendar.HOUR_OF_DAY);
+        this.minutes = calendar.get(Calendar.MINUTE);
+        this.seconds = calendar.get(Calendar.SECOND);
     }
 
     @Override
@@ -58,5 +71,20 @@ public class TicketUnevenSplit implements ITicket{
     @Override
     public void setIsPaid(boolean isPaid) {
         this.isPaid = isPaid;
+    }
+
+    @Override
+    public int getHours() {
+        return this.hours;
+    }
+
+    @Override
+    public int getMinutes() {
+        return this.minutes;
+    }
+
+    @Override
+    public int getSeconds() {
+        return this.seconds;
     }
 }
