@@ -4,7 +4,7 @@ import exceptions.NegativeNumberException;
 
 public class Person {
     private static int ClassID = 0;
-    private int ID;
+    private final int ID;
     private String firstName;
     private String lastName;
 

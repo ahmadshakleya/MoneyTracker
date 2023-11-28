@@ -51,6 +51,10 @@ public class TicketsDB
         return this.db.get(person);
     }
 
+    public void removeTicket(Person person, ITicket ticket){
+        this.db.get(person).remove(ticket);
+    }
+
     public void addObserver(PropertyChangeListener listener){
         support.addPropertyChangeListener(listener);
     }

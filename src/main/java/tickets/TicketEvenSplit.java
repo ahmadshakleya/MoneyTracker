@@ -3,6 +3,7 @@ package tickets;
 import person.Person;
 
 import java.util.AbstractMap;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,6 +15,9 @@ public class TicketEvenSplit implements ITicket{
     double total;
     String description;
     boolean isPaid = false;
+    private int hours;
+    private int minutes;
+    private int seconds;
 
     /**
      * Lijst van terugbetalingen per persoon.
@@ -27,6 +31,11 @@ public class TicketEvenSplit implements ITicket{
         Double terugbetalingPerPersoon = total / people.size();
         terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
         this.description = "NO DESCRIPTION";
+
+        Calendar calendar = Calendar.getInstance();
+        this.hours = calendar.get(Calendar.HOUR_OF_DAY);
+        this.minutes = calendar.get(Calendar.MINUTE);
+        this.seconds = calendar.get(Calendar.SECOND);
     }
 
     public TicketEvenSplit(double total, Set<Person> people, String description){
@@ -34,6 +43,26 @@ public class TicketEvenSplit implements ITicket{
         Double terugbetalingPerPersoon = total / people.size();
         terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
         this.description = description;
+
+        Calendar calendar = Calendar.getInstance();
+        this.hours = calendar.get(Calendar.HOUR_OF_DAY);
+        this.minutes = calendar.get(Calendar.MINUTE);
+        this.seconds = calendar.get(Calendar.SECOND);
+    }
+
+    @Override
+    public int getHours() {
+        return this.hours;
+    }
+
+    @Override
+    public int getMinutes() {
+        return this.minutes;
+    }
+
+    @Override
+    public int getSeconds() {
+        return this.seconds;
     }
 
     @Override
