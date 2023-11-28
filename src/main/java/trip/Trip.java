@@ -1,7 +1,9 @@
 package trip;
 
 import person.Person;
+import tickets.ITicket;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,18 +11,15 @@ import java.util.Map;
 public class Trip {
     private String tripName;
     private static int tripID = 0;
-    private List<Person> participants; // TODO: Maak hiervan een set (no duplicates)
-    private double totalExpenses;
+    private List<Person> participants = new ArrayList<>(); // TODO: Maak hiervan een set (no duplicates)
+    private double totalExpenses = 0.0;
 
     public Trip(String tripName) {
         this.tripName = tripName;
         tripID = generateTripID(); // Implements a method to generate unique IDs
-        participants = new ArrayList<>();
-        totalExpenses = 0.0;
     }
 
-    public void addParticipant(String firstName, String lastName) {
-        Person newPerson = new Person(firstName, lastName);
+    public void addParticipant(Person newPerson) {
         participants.add(newPerson);
     }
 
@@ -40,13 +39,10 @@ public class Trip {
     /*
         The following function may be removed or handled by something else
      */
-    public void calculateOwedAmounts() {
-        int totalParticipants = participants.size();
-        double totalExpensesPaid = participants.stream().mapToDouble(Person::getExpensesPaid).sum();
-        double eachShare = totalExpensesPaid / totalParticipants;
-
+    public void calculateOwedAmounts(ITicket ticket) {
+        List<AbstractMap.SimpleEntry<Person, Double>> listExpenses= ticket.getTotalPerPerson();
         for (Person participant : participants) {
-            double amountOwed = eachShare - participant.getExpensesPaid();
+            double amountOwed = listExpenses.get(participants.indexOf(participant)).getValue() - participant.getExpensesPaid();
             participant.setAmountOwed(amountOwed);
         }
     }

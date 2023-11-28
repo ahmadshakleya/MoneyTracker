@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import person.Person;
+import tickets.ITicket;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +24,16 @@ public class Trip_UTest {
     @Test
     public void testAddParticipant() {
         Trip trip = new Trip("Vakantie");
-        trip.addParticipant("John", "Doe");
+        Person person = Mockito.mock(Person.class);
+        trip.addParticipant(person);
         Assert.assertEquals(1, trip.getParticipants().size());
     }
 
     @Test
     public void testRemoveParticipant() {
         Trip trip = new Trip("Vakantie");
-        trip.addParticipant("John", "Doe");
+        Person person_mock = Mockito.mock(Person.class);
+        trip.addParticipant(person_mock);
 
         // Get the Person object added to the trip
         Person person = trip.getParticipants().get(0);
@@ -44,7 +48,7 @@ public class Trip_UTest {
     public void testAddExpense() {
         Trip trip = new Trip("Vakantie");
         Person person = Mockito.mock(Person.class);
-        trip.addParticipant("John", "Doe");
+        trip.addParticipant(person);
         trip.addExpense(person, 50.0);
         Mockito.verify(person).addExpense(50.0);
         Assert.assertEquals(50.0, trip.calculateTotalExpenses(), 0.001);
@@ -53,8 +57,10 @@ public class Trip_UTest {
     @Test
     public void testCalculateTotalExpenses() {
         Trip trip = new Trip("Vakantie");
-        trip.addParticipant("John", "Doe");
-        trip.addParticipant("Alice", "Smith");
+        Person person1 = Mockito.mock(Person.class);
+        trip.addParticipant(person1);
+        Person person2 = Mockito.mock(Person.class);
+        trip.addParticipant(person2);
         trip.addExpense(trip.getParticipants().get(0), 50.0);
         trip.addExpense(trip.getParticipants().get(1), 75.0);
 
@@ -63,29 +69,34 @@ public class Trip_UTest {
 
     @Test
     public void testCalculateOwedAmounts() {
-        Trip trip = new Trip("Vakantie");
+        Trip trip = new Trip("Test Trip");
 
-        // Mock persons
-        Person john = Mockito.mock(Person.class);
-        Person alice = Mockito.mock(Person.class);
+        // Mock the ITicket interface
+        ITicket ticket = Mockito.mock(ITicket.class);
 
-        List<Person> mockedParticipants = new ArrayList<>();
-        mockedParticipants.add(john);
-        mockedParticipants.add(alice);
+        // Create test data for the ticket
+        List<AbstractMap.SimpleEntry<Person, Double>> expenses = new ArrayList<>();
+        Person person1 = Mockito.mock(Person.class);
+        Person person2 = Mockito.mock(Person.class);
+        expenses.add(new AbstractMap.SimpleEntry<>(person1, 100.0));
+        expenses.add(new AbstractMap.SimpleEntry<>(person2, 150.0));
+        person1.addExpense(expenses.get(0).getValue());
+        person2.addExpense(expenses.get(1).getValue());
 
-        trip.setParticipants(mockedParticipants);
+        // Stub the methods needed for the test
+        Mockito.when(ticket.getTotal()).thenReturn(250.0);
+        Mockito.when(ticket.getTotalPerPerson()).thenReturn(expenses);
+        Mockito.when(person1.getExpensesPaid()).thenReturn(100.0);
+        Mockito.when(person2.getExpensesPaid()).thenReturn(150.0);
+        // Create a Trip instance and call calculateOwedAmounts with the mocked ticket
+        trip.addParticipant(person1);
+        trip.addParticipant(person2);
+        trip.calculateOwedAmounts(ticket);
 
-        // Set expenses paid for mocked persons
-        Mockito.when(john.getExpensesPaid()).thenReturn(60.0);
-        Mockito.when(alice.getExpensesPaid()).thenReturn(40.0);
-
-        // Calculate owed amounts
-        trip.calculateOwedAmounts();
-
-        System.out.println(john.getAmountOwed());
-        System.out.println(alice.getAmountOwed());
-        // Verify setAmountOwed calls with expected owed amounts
-        //Mockito.verify(john).setAmountOwed(10.0); // John owes 10 (60 - 50)
-        //Mockito.verify(alice).setAmountOwed(-10.0); // Alice owes -10 (40 - 50)
+        System.out.println(person1.getAmountOwed());
+        /*
+        // Assert the expected amount owed for participants
+        Assert.assertEquals(-100.0, trip.getParticipants().get(0).getAmountOwed(), 0.001);
+        Assert.assertEquals(0.0, trip.getParticipants().get(1).getAmountOwed(), 0.001);*/
     }
 }
