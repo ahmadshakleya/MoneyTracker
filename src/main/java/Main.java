@@ -1,12 +1,9 @@
-import controller.RegistrationController;
-import database.Database;
 import database.TicketsDB;
 import person.Person;
 import factory.PersonFactory;
 import observers.DatabaseObserver;
 import observers.EntryObserver;
 import tickets.TicketEvenSplit;
-import view.ViewFrame;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,10 +24,11 @@ public class Main
     public void run()
     {
         // Replace with your own objects
-        TicketsDB db = TicketsDB.getInstance();
-        Set<Person> test = new HashSet<>();
-        test.add(new Person("tester", "tester"));
-        db.addEntry(db.test, new TicketEvenSplit(100, test));
+        Person test1 = new Person("a", "b");
+        Person test2 = new Person("aaa", "bbbb");
+
+        System.out.println(test1.getID());
+        System.out.println(test2.getID());
         /*RegistrationController register= new RegistrationController(timedb);
         PersonFactory factory = new PersonFactory();
 

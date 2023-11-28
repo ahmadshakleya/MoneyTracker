@@ -1,5 +1,5 @@
 package view;
-
+/*
 import controller.RegistrationController;
 import register_entry.RegisterEntry;
 import view.panels.ListPanel;
@@ -62,3 +62,4 @@ public class ViewFrame extends JFrame implements PropertyChangeListener {
         System.out.println(values.get(0) + " " + values.get(1));
     }
 }
+*/

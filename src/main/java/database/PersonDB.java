@@ -13,17 +13,17 @@ import java.util.List;
 
 public class PersonDB
 {
-    private final Set<Person> db;
+    private final HashMap<Integer, Person> db;
 
     // Static variable to hold the single instance
-    private static TicketsDB instance;
+    private static PersonDB instance;
     protected PropertyChangeSupport support;
 
     // Private constructor to prevent instantiation
     private PersonDB()
     {
         support = new PropertyChangeSupport(this);
-        this.db = new HashSet<>();
+        this.db = new HashMap<>();
     }
 
     // Static method to get the instance
@@ -34,19 +34,17 @@ public class PersonDB
         return instance;
     }
 
-    public void addEntry(Person person, ITicket ticket)
+    public void addEntry(Person person)
     {
-        db.get(person).add(ticket);
+        db.put(person.getID(), person);
         ArrayList<String> newValue = new ArrayList<>();
         newValue.add(person.getFirstName());
-        support.firePropertyChange("Entry: ", newValue, ticket); // Persoon en Ticket
-
-
+        support.firePropertyChange("Entry: ", null, newValue); // Persoon
     }
 
-    public ArrayList<ITicket> getEntry(Person person)
+    public Person getEntry(Integer ID)
     {
-        return this.db.get(person);
+        return this.db.get(ID);
     }
 
     public void addObserver(PropertyChangeListener listener){

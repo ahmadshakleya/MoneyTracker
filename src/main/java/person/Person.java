@@ -1,7 +1,8 @@
 package person;
 
 public class Person {
-    private static int ID = 0;
+    private static int ClassID = 0;
+    private int ID;
     private String firstName;
     private String lastName;
 
@@ -11,13 +12,14 @@ public class Person {
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        ID++;
+        ClassID++;
+        ID = ClassID;
 
         expensesPaid = 0.0;
         amountOwed = 0.0;
     }
 
-    public static int getID() {
+    public int getID() {
         return ID;
     }
 

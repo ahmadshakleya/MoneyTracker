@@ -1,12 +1,12 @@
 package controller;
-
+/*
 import database.Database;
 import person.Person;
 import register_entry.RegisterEntry;
 
 public class RegistrationController implements Controller
 {
-    private Database db;
+  //  private Database db;
 
     public RegistrationController(Database db)
     {
@@ -27,3 +27,4 @@ public class RegistrationController implements Controller
         db.addEntry(e, entry);
     }
 }
+*/

@@ -1,5 +1,5 @@
 package view.panels;
-
+/*
 import controller.RegistrationController;
 import person.Person;
 import factory.PersonFactory;
@@ -62,3 +62,4 @@ public class RegistrationButtonPanel extends JPanel {
 
 
 }
+*/
