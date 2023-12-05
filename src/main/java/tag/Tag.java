@@ -1,4 +1,4 @@
-package Tag;
+package tag;
 
 /**
  * Enum voor tags te maken de tickets.

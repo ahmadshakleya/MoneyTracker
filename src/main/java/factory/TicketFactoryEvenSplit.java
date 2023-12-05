@@ -1,6 +1,6 @@
 package factory;
 
-import Tag.Tag;
+import tag.Tag;
 import person.Person;
 import tickets.ITicket;
 import tickets.decorators.TaggedTicket;

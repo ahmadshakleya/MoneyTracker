@@ -13,7 +13,7 @@ public class TicketUnevenSplit extends AbstractTicket {
      * SimpleEntry.getKey() voor de naam te krijgen
      * SimpleEntry.getValue() voor de waarde te krijgen
      */
-    List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
+    private final List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
 
     public TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen, String description) {
         this.terugbetaling = terugbetalingen;
