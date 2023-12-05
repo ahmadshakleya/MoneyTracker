@@ -1,7 +1,8 @@
 package view;
-/*
-import controller.RegistrationController;
+
+import TicketsDBController.TicketsDBController;
 import register_entry.RegisterEntry;
+import tickets.ITicket;
 import view.panels.ListPanel;
 import view.panels.RegistrationButtonPanel;
 
@@ -12,13 +13,13 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class ViewFrame extends JFrame implements PropertyChangeListener {
-    private RegistrationController registrationController;
+    private TicketsDBController t_controller;
     private ListPanel panel;
     private RegistrationButtonPanel buttons;
 
-    public ViewFrame(RegistrationController registrationController) {
+    public ViewFrame(TicketsDBController registrationController) {
         super("Registration");
-        this.registrationController = registrationController;
+        this.t_controller = registrationController;
     }
 
     public void initialize() {
@@ -41,7 +42,7 @@ public class ViewFrame extends JFrame implements PropertyChangeListener {
         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
 
         // Pass the controller to the ButtonPanel
-        buttons = new RegistrationButtonPanel(registrationController);
+        buttons = new RegistrationButtonPanel(t_controller);
         panel = new ListPanel();
 
         contentPanel.add(panel, BorderLayout.CENTER);
@@ -58,8 +59,7 @@ public class ViewFrame extends JFrame implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ArrayList<String> values = (ArrayList<String>) evt.getNewValue();
-        System.out.println(values.get(0) + " " + values.get(1));
+        ITicket value1 = (ITicket) evt.getNewValue();
+        System.out.println(value1.getDescription() + " is added to the database with amount: " + value1.getTotal());
     }
 }
-*/

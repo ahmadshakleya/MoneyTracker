@@ -46,7 +46,7 @@ public class TicketsDB
 
         ArrayList<String> newValue = new ArrayList<>();
         newValue.add(person.getFirstName());
-        support.firePropertyChange("Entry: ", newValue, ticket);
+        support.firePropertyChange("Entry: ", null, ticket);
     }
 
     public ArrayList<ITicket> getEntry(Person person)
