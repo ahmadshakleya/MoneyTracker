@@ -1,7 +1,7 @@
 package register_entry;
 
 import java.util.Calendar;
-
+@Deprecated
 public class RegisterEntry
 {
     protected boolean checkedIn;

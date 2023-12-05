@@ -1,5 +1,6 @@
 package register_entry;
 
+@Deprecated
 public class RegisterEntryNull extends RegisterEntry
 {
     public RegisterEntryNull()

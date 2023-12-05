@@ -1,10 +1,12 @@
-package tickets;
+package tickets.decorators;
 
 import Tag.Tag;
+import tickets.ITicket;
+import tickets.decorators.TicketDecorator;
 
 import java.util.List;
 
-public class TaggedTicket extends TicketDecorator{
+public class TaggedTicket extends TicketDecorator {
     List<Tag> tags;
 
     public TaggedTicket(ITicket ticket, List<Tag> tags) {

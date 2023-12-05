@@ -1,8 +1,10 @@
-package tickets;
+package tickets.decorators;
 
 import person.Person;
+import tickets.ITicket;
 
 import java.util.AbstractMap;
+import java.util.Date;
 import java.util.List;
 
 public abstract class TicketDecorator implements ITicket {
@@ -18,19 +20,7 @@ public abstract class TicketDecorator implements ITicket {
     }
 
     @Override
-    public int getHours() {
-        return decoratedTicket.getHours();
-    }
-
-    @Override
-    public int getMinutes() {
-        return decoratedTicket.getMinutes();
-    }
-
-    @Override
-    public int getSeconds() {
-        return decoratedTicket.getSeconds();
-    }
+    public Date getDate();
 
     @Override
     public double getTotal() {

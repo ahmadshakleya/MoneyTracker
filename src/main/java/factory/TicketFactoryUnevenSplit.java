@@ -3,7 +3,7 @@ package factory;
 import Tag.Tag;
 import person.Person;
 import tickets.ITicket;
-import tickets.TaggedTicket;
+import tickets.decorators.TaggedTicket;
 import tickets.TicketUnevenSplit;
 
 import java.util.AbstractMap;

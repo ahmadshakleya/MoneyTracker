@@ -4,14 +4,12 @@ import person.Person;
 
 import java.util.AbstractMap;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public interface ITicket {
 
-    abstract int getHours();
-    abstract int getMinutes();
-    abstract int getSeconds();
-
+    abstract Date getDate();
     abstract String getDescription();
     abstract double getTotal();
     abstract List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson();
