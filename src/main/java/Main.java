@@ -45,7 +45,7 @@ public class Main
         Set<Person> participants = new HashSet<>();
         participants.add(person1);
         participants.add(person2);
-        ITicket ticket = new TicketEvenSplit(20, participants);
+        ITicket ticket = new TicketEvenSplit(20, participants, "New Ticket");
 
         tickets_register.addTicket(person1, ticket);
 
