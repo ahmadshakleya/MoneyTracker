@@ -6,6 +6,7 @@ import observers.DatabaseObserver;
 import observers.EntryObserver;
 import tickets.ITicket;
 import tickets.TicketEvenSplit;
+import view.ViewFrame;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,10 +31,14 @@ public class Main
         Person person1 = new Person("Ahmad", "Shakleya");
         Person person2 = new Person("Berkay", "Yildirim");
 
+        ViewFrame view = new ViewFrame(tickets_register);
+        view.initialize();
+
         EntryObserver printEntry = new EntryObserver();
         DatabaseObserver printUpdated = new DatabaseObserver();
         ticketsDB.addObserver(printEntry);
         ticketsDB.addObserver(printUpdated);
+        ticketsDB.addObserver(view);
 
         sleep(3000);
 
@@ -43,6 +48,9 @@ public class Main
         ITicket ticket = new TicketEvenSplit(20, participants);
 
         tickets_register.addTicket(person1, ticket);
+
+
+
         //tickets_register.addTicket(person2, ticket);
 
         // Replace with your own objects
