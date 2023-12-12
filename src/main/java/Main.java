@@ -40,7 +40,6 @@ public class Main
         TicketFactoryMaker ticketFactoryMaker = new TicketFactoryMaker(tickets_controller);
         TicketFactoryEvenSplit ticketFactory = ticketFactoryMaker.makeEvenTicketFactory();
 
-
         Set<Person> people_who_paid_nr1 = new HashSet<>();
         people_who_paid_nr1.add(person2);
         people_who_paid_nr1.add(person3);
