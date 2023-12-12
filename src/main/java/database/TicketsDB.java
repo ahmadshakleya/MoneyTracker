@@ -1,17 +1,12 @@
 package database;
 
 import person.Person;
-import register_entry.RegisterEntry;
-import register_entry.RegisterEntryNull;
 import tickets.ITicket;
 
-import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class TicketsDB
 {
@@ -45,7 +40,7 @@ public class TicketsDB
         ticketsForPerson.add(ticket);
 
         ArrayList<String> newValue = new ArrayList<>();
-        newValue.add(person.getFirstName());
+        newValue.add(person.getName());
         support.firePropertyChange("Entry: ", null, ticket);
     }
 

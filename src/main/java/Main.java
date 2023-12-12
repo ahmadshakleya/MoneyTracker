@@ -1,4 +1,5 @@
 import TicketsDBController.TicketsDBController;
+import database.PersonDB;
 import database.TicketsDB;
 import person.Person;
 import factory.PersonFactory;
@@ -28,8 +29,8 @@ public class Main
     {
         TicketsDB ticketsDB = TicketsDB.getInstance();
         TicketsDBController tickets_register = new TicketsDBController(ticketsDB);
-        Person person1 = new Person("Ahmad", "Shakleya");
-        Person person2 = new Person("Berkay", "Yildirim");
+        Person person1 = PersonFactory.makePerson("Persoon Nr 1");
+        Person person2 = PersonFactory.makePerson("Persoon Nr 2");
 
         ViewFrame view = new ViewFrame(tickets_register);
         view.initialize();

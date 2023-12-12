@@ -5,15 +5,13 @@ import exceptions.NegativeNumberException;
 public class Person {
     private static int ClassID = 0;
     private final int ID;
-    private String firstName;
-    private String lastName;
+    private String name;
 
     private double expensesPaid; // Hoeveel ik zelf heb betaald.
     private double amountOwed; // Hoeveel moet ik aan een ander betalen.
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Person(String name) {
+        this.name = name;
         ClassID++;
         ID = ClassID;
 
@@ -25,20 +23,12 @@ public class Person {
         return ID;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getExpensesPaid() {
@@ -79,7 +69,7 @@ the logic of debt calculation with the person entity.
 This separation adheres more to the principle of single responsibility.
      */
     public double calculateAmountOwed(double totalExpenses, int totalParticipants) throws NegativeNumberException {
-        if(totalParticipants <= 0 || totalExpenses < 0) {
+        if (totalParticipants <= 0 || totalExpenses < 0) {
             throw new NegativeNumberException("Invalid totalExpenses or totalParticipants");
         }
 

@@ -20,7 +20,7 @@ public abstract class TicketDecorator implements ITicket {
     }
 
     @Override
-    public Date getDate();
+    public Date getDate() {return decoratedTicket.getDate();};
 
     @Override
     public double getTotal() {

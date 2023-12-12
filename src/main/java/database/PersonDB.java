@@ -1,19 +1,14 @@
 package database;
 
 import person.Person;
-import register_entry.RegisterEntry;
-import register_entry.RegisterEntryNull;
-import tickets.ITicket;
 
-import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
-import java.util.List;
 
 public class PersonDB
 {
-    private final HashMap<Integer, Person> db;
+    private final HashMap<String, Person> db;
 
     // Static variable to hold the single instance
     private static PersonDB instance;
@@ -36,15 +31,15 @@ public class PersonDB
 
     public void addEntry(Person person)
     {
-        db.put(person.getID(), person);
+        db.put(person.getName(), person);
         ArrayList<String> newValue = new ArrayList<>();
-        newValue.add(person.getFirstName());
+        newValue.add(person.getName());
         support.firePropertyChange("Entry: ", null, newValue); // Persoon
     }
 
-    public Person getEntry(Integer ID)
+    public Person getEntry(String name)
     {
-        return this.db.get(ID);
+        return this.db.get(name);
     }
 
     public void addObserver(PropertyChangeListener listener){

@@ -1,10 +1,15 @@
 package factory;
 
+import database.PersonDB;
 import person.Person;
 
-@Deprecated //delete classe
+
 public class PersonFactory {
-    public Person getPerson(int id, String firstName, String lastName) {
-        return new Person(firstName, lastName); // %TODO was "new Person(id, firstName, lastName);"
+
+    public static Person makePerson(String name) {
+        PersonDB db = PersonDB.getInstance();
+        Person newPerson = new Person(name);
+        db.addEntry(newPerson);
+        return newPerson;
     }
 }
