@@ -25,6 +25,8 @@ public class Main
 
     public void run()
     {
+
+        // NIET VERWIJDEREN. DIT KAN EEN INTEGRATION TEST WORDEN
         TicketsDB ticketsDB = TicketsDB.getInstance();
         TicketsDBController tickets_controller = new TicketsDBController(ticketsDB);
         PersonUpdaters personUpdaters = new PersonUpdaters();
