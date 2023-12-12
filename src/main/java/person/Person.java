@@ -1,5 +1,6 @@
 package person;
 
+import database.TicketsDB;
 import exceptions.NegativeNumberException;
 
 public class Person {
@@ -39,17 +40,12 @@ public class Person {
         return amountOwed;
     }
 
-    public void setAmountOwed(double amountOwed) throws NegativeNumberException {
-        if (amountOwed < 0) {
-            throw new NegativeNumberException("Invalid amount " + amountOwed);
-        }
-        this.amountOwed = amountOwed;
+    public void addAmountOwed(double amountOwed) {
+        this.amountOwed += amountOwed;
     }
 
-    public void addExpense(double expense) throws NegativeNumberException {
-        if (expense < 0) {
-            throw new NegativeNumberException("Invalid expense " + expense);
-        }
+    public void addExpense(double expense){
+
         this.expensesPaid += expense;
     }
 
@@ -75,5 +71,15 @@ This separation adheres more to the principle of single responsibility.
 
         double eachShare = totalExpenses / totalParticipants;
         return eachShare - this.expensesPaid;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", expensesPaid=" + expensesPaid +
+                ", amountOwed=" + amountOwed +
+                '}';
     }
 }

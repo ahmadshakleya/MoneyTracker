@@ -17,14 +17,14 @@ public class Person_UTest {
     @Test
     public void testGetFirstName() {
         Person person = new Person("John", "Doe");
-        Assert.assertEquals("John", person.getFirstName());
+        Assert.assertEquals("John", person.getName());
     }
 
     @Test
     public void testSetFirstName() {
         Person person = new Person("John", "Doe");
-        person.setFirstName("Alice");
-        Assert.assertEquals("Alice", person.getFirstName());
+        person.setName("Alice");
+        Assert.assertEquals("Alice", person.getName());
     }
 
     @Test

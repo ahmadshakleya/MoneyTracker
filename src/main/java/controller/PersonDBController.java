@@ -1,4 +1,4 @@
-package PersonDBController;
+package controller;
 
 import database.PersonDB;
 import person.Person;
@@ -18,8 +18,8 @@ public class PersonDBController {
         personDB.addEntry(person);
     }
 
-    public Person getPersonByID(Integer ID) {
-        return personDB.getEntry(ID);
+    public Person getPerson(String name) {
+        return personDB.getEntry(name);
     }
 
     public void addObserver(PropertyChangeListener listener) {

@@ -1,7 +1,6 @@
 package view;
 
-import TicketsDBController.TicketsDBController;
-import register_entry.RegisterEntry;
+import controller.TicketsDBController;
 import tickets.ITicket;
 import view.panels.ListPanel;
 import view.panels.RegistrationButtonPanel;
@@ -10,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class ViewFrame extends JFrame implements PropertyChangeListener {
     private TicketsDBController t_controller;

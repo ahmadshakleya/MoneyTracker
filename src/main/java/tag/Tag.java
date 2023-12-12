@@ -7,5 +7,6 @@ public enum Tag {
     AIRPLANE,
     RESTAURANT,
     TAXI,
-    CONCERT
+    CONCERT,
+    TERUGBETALING
 }

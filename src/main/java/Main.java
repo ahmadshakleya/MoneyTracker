@@ -1,15 +1,15 @@
-import TicketsDBController.TicketsDBController;
-import database.PersonDB;
+import controller.TicketsDBController;
 import database.TicketsDB;
+import factory.TicketFactoryEvenSplit;
+import factory.TicketFactoryMaker;
+import observers.PersonUpdaters;
 import person.Person;
 import factory.PersonFactory;
-import observers.DatabaseObserver;
-import observers.EntryObserver;
-import tickets.ITicket;
-import tickets.TicketEvenSplit;
-import view.ViewFrame;
+import tag.Tag;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Main
@@ -28,10 +28,40 @@ public class Main
     public void run()
     {
         TicketsDB ticketsDB = TicketsDB.getInstance();
-        TicketsDBController tickets_register = new TicketsDBController(ticketsDB);
+        TicketsDBController tickets_controller = new TicketsDBController(ticketsDB);
+        PersonUpdaters personUpdaters = new PersonUpdaters();
+
+        tickets_controller.addObserver(personUpdaters);
+
         Person person1 = PersonFactory.makePerson("Persoon Nr 1");
         Person person2 = PersonFactory.makePerson("Persoon Nr 2");
+        Person person3 = PersonFactory.makePerson("Persoon Nr 3");
 
+        TicketFactoryMaker ticketFactoryMaker = new TicketFactoryMaker(tickets_controller);
+        TicketFactoryEvenSplit ticketFactory = ticketFactoryMaker.makeEvenTicketFactory();
+
+
+        Set<Person> people_who_paid_nr1 = new HashSet<>();
+        people_who_paid_nr1.add(person2);
+        people_who_paid_nr1.add(person3);
+
+        List<Tag> tags = new ArrayList<>();
+        tags.add(Tag.AIRPLANE);
+
+        System.out.println(person1);
+        System.out.println(person2);
+        System.out.println(person3);
+
+        System.out.println("Ticket gemaakt");
+        ticketFactory.makeEvenTicket(person1, 100, people_who_paid_nr1, tags, "wheeeee");
+
+        System.out.println(person1);
+        System.out.println(person2);
+        System.out.println(person3);
+
+
+
+        /*
         ViewFrame view = new ViewFrame(tickets_register);
         view.initialize();
 
@@ -48,7 +78,7 @@ public class Main
         participants.add(person2);
         ITicket ticket = new TicketEvenSplit(20, participants, "New Ticket");
 
-        tickets_register.addTicket(person1, ticket);
+        tickets_register.addTicket(person1, ticket);*/
 
 
 

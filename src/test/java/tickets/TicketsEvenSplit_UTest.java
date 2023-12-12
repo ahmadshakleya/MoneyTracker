@@ -4,17 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import java.util.stream.Stream;
 
 
 import person.Person;
 
-
-import person.Person;
-import tickets.TicketEvenSplit;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -45,13 +40,13 @@ public class TicketsEvenSplit_UTest {
         Person mock_Person2 = Mockito.mock(Person.class);
         Person mock_Person3 = Mockito.mock(Person.class);
 
-        Mockito.when(mock_Person1.getFirstName()).thenReturn("Jan");
+        Mockito.when(mock_Person1.getName()).thenReturn("Jan");
         Mockito.when(mock_Person1.getLastName()).thenReturn("Man");
 
-        Mockito.when(mock_Person2.getFirstName()).thenReturn("Per");
+        Mockito.when(mock_Person2.getName()).thenReturn("Per");
         Mockito.when(mock_Person2.getLastName()).thenReturn("Soon");
 
-        Mockito.when(mock_Person3.getFirstName()).thenReturn("Hu");
+        Mockito.when(mock_Person3.getName()).thenReturn("Hu");
         Mockito.when(mock_Person3.getLastName()).thenReturn("Man");
 
 

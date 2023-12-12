@@ -1,5 +1,7 @@
 package factory;
 
+import controller.TicketsDBController;
+import database.TicketsDB;
 import tag.Tag;
 import person.Person;
 import tickets.ITicket;
@@ -11,12 +13,15 @@ import java.util.Set;
 
 public class TicketFactoryEvenSplit {
 
-    public TicketFactoryEvenSplit(){
+    private final TicketsDBController controller;
 
+    public TicketFactoryEvenSplit(TicketsDBController controller){
+        this.controller = controller;
     }
 
-    public ITicket makeEvenTicket(double totaal, Set<Person> people, List<Tag> tags, String description){
+    public void makeEvenTicket(Person whoHasPaid, double totaal, Set<Person> people, List<Tag> tags, String description){
         ITicket ticket = new TicketEvenSplit(totaal, people, description);
-        return new TaggedTicket(ticket, tags);
+        ITicket taggedTicket = new TaggedTicket(ticket, tags);
+        controller.addTicket(whoHasPaid, taggedTicket);
     }
 }

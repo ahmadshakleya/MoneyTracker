@@ -1,4 +1,4 @@
-package TicketsDBController;
+package controller;
 
 
 import database.TicketsDB;

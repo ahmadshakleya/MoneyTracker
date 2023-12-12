@@ -1,6 +1,6 @@
 package view.panels;
 
-import TicketsDBController.TicketsDBController;
+import controller.TicketsDBController;
 import person.Person;
 import factory.PersonFactory;
 
@@ -28,7 +28,7 @@ public class RegistrationButtonPanel extends JPanel {
 
         // Create your temporary person here
         PersonFactory personFactory = new PersonFactory();
-        this.person = personFactory.getPerson(1, "Test", "Programmer");
+        //this.person = personFactory.getPerson(1, "Test", "Programmer");
         addTicketButtonActionListener();
         addCheckOutButtonActionListener();
 

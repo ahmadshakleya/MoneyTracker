@@ -34,7 +34,7 @@ public class PersonDB
         db.put(person.getName(), person);
         ArrayList<String> newValue = new ArrayList<>();
         newValue.add(person.getName());
-        support.firePropertyChange("Entry: ", null, newValue); // Persoon
+        support.firePropertyChange("people who are effected: ", null, newValue); // Persoon
     }
 
     public Person getEntry(String name)

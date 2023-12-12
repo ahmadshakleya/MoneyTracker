@@ -18,7 +18,7 @@ public class TicketEvenSplit extends AbstractTicket {
 
     public TicketEvenSplit(double total, Set<Person> people, String description) {
         this.total = total;
-        Double terugbetalingPerPersoon = total / people.size();
+        Double terugbetalingPerPersoon = total / (people.size() + 1);
         terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
         this.description = description;
 

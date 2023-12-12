@@ -5,8 +5,8 @@ import tickets.ITicket;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TicketsDB
 {
@@ -32,16 +32,12 @@ public class TicketsDB
     }
 
     public void addEntry(Person person, ITicket ticket) {
-        ArrayList<ITicket> ticketsForPerson = db.get(person);
-        if (ticketsForPerson == null) {
-            ticketsForPerson = new ArrayList<>();
-            db.put(person, ticketsForPerson);
-        }
+        ArrayList<ITicket> ticketsForPerson = db.computeIfAbsent(person, k -> new ArrayList<>());
         ticketsForPerson.add(ticket);
 
-        ArrayList<String> newValue = new ArrayList<>();
-        newValue.add(person.getName());
-        support.firePropertyChange("Entry: ", null, ticket);
+        //Set<Person> peopleWhoAreEffected = ticket.getTotalPerPerson().stream().map(AbstractMap.SimpleEntry::getKey).collect(Collectors.toSet());
+        //peopleWhoAreEffected.add(person);
+        support.firePropertyChange("Entry: ", person, ticket);
     }
 
     public ArrayList<ITicket> getEntry(Person person)
