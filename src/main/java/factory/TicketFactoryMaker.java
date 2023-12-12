@@ -4,7 +4,7 @@ import controller.TicketsDBController;
 
 public class TicketFactoryMaker {
 
-    private TicketsDBController controller;
+    private final TicketsDBController controller;
 
     public TicketFactoryMaker(TicketsDBController controller){
         this.controller = controller;

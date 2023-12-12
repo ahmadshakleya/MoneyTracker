@@ -1,7 +1,8 @@
 package person;
 
-import database.TicketsDB;
 import exceptions.NegativeNumberException;
+
+import java.util.Set;
 
 public class Person {
     private static int ClassID = 0;
@@ -10,6 +11,7 @@ public class Person {
 
     private double expensesPaid; // Hoeveel ik zelf heb betaald.
     private double amountOwed; // Hoeveel moet ik aan een ander betalen.
+    private Set<Person> peopleIOwe;
 
     public Person(String name) {
         this.name = name;
@@ -40,7 +42,7 @@ public class Person {
         return amountOwed;
     }
 
-    public void addAmountOwed(double amountOwed) {
+    public void changeAmountOwed(double amountOwed) {
         this.amountOwed += amountOwed;
     }
 
@@ -52,6 +54,14 @@ public class Person {
     public void resetExpensesAndAmountOwed() {
         this.expensesPaid = 0.0;
         this.amountOwed = 0.0;
+    }
+
+    public void addPeopleIOwe(Person person){
+        peopleIOwe.add(person);
+    }
+
+    public Set<Person> getPeopleIOwe(){
+        return peopleIOwe;
     }
 
     // The following function may be removed or placed somewhere else:

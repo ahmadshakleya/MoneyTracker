@@ -19,9 +19,9 @@ public class TicketFactoryEvenSplit {
         this.controller = controller;
     }
 
-    public void makeEvenTicket(Person whoHasPaid, double totaal, Set<Person> people, List<Tag> tags, String description){
+    public void makeEvenTicket(Person whoHasPaid, double totaal, Set<Person> people, Tag tag, String description){
         ITicket ticket = new TicketEvenSplit(totaal, people, description);
-        ITicket taggedTicket = new TaggedTicket(ticket, tags);
+        ITicket taggedTicket = new TaggedTicket(ticket, tag);
         controller.addTicket(whoHasPaid, taggedTicket);
     }
 }

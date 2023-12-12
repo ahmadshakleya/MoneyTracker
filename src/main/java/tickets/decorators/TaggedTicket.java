@@ -3,17 +3,15 @@ package tickets.decorators;
 import tag.Tag;
 import tickets.ITicket;
 
-import java.util.List;
-
 public class TaggedTicket extends TicketDecorator {
-    private final List<Tag> tags;
+    private final Tag tag;
 
-    public TaggedTicket(ITicket ticket, List<Tag> tags) {
+    public TaggedTicket(ITicket ticket, Tag tag) {
         super(ticket);
-        this.tags = tags;
+        this.tag = tag;
     }
 
-    public List<Tag> getTags(){
-        return tags;
+    public Tag getTag(){
+        return tag;
     }
 }

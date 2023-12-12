@@ -2,9 +2,8 @@ package tickets;
 
 import person.Person;
 
-import java.util.AbstractMap;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,20 +13,20 @@ public class TicketEvenSplit extends AbstractTicket {
      * SimpleEntry.getKey() voor de naam te krijgen
      * SimpleEntry.getValue() voor de waarde te krijgen
      */
-    private final List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
+    private final HashMap<Person, Double> terugbetaling;
 
     public TicketEvenSplit(double total, Set<Person> people, String description) {
         this.total = total;
-        Double terugbetalingPerPersoon = total / (people.size() + 1);
-        terugbetaling = people.stream().map(person -> new AbstractMap.SimpleEntry<>(person, terugbetalingPerPersoon)).collect(Collectors.toList());
+        double terugbetalingPerPersoon = total / (people.size() + 1);
+        //terugbetalingPerPersoon = (double) Math.round(terugbetalingPerPersoon*100)/100;
+        terugbetaling = (HashMap<Person, Double>) people.stream().collect(Collectors.toMap(person -> person, person -> terugbetalingPerPersoon));
         this.description = description;
-
         Calendar calendar = Calendar.getInstance();
         this.date = calendar.getTime();
     }
 
     @Override
-    public List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson() {
+    public HashMap<Person, Double> getTotalPerPerson() {
         return terugbetaling;
     }
 }

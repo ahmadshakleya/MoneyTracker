@@ -9,6 +9,7 @@ import tickets.decorators.TaggedTicket;
 import tickets.TicketUnevenSplit;
 
 import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
 
 public class TicketFactoryUnevenSplit {
@@ -18,9 +19,9 @@ public class TicketFactoryUnevenSplit {
         this.controller = controller;
     }
 
-    public void makeUnevenTicket(Person whoHasPaid, List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen, List<Tag> tags, String description){
+    public void makeUnevenTicket(Person whoHasPaid, HashMap<Person, Double> terugbetalingen, Tag tag, String description){
         ITicket ticket = new TicketUnevenSplit(terugbetalingen, description);
-        ITicket taggedTicket = new TaggedTicket(ticket, tags);
+        ITicket taggedTicket = new TaggedTicket(ticket, tag);
         controller.addTicket(whoHasPaid, taggedTicket);
     }
 }

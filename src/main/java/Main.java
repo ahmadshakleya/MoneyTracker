@@ -2,15 +2,13 @@ import controller.TicketsDBController;
 import database.TicketsDB;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
+import factory.TicketFactoryUnevenSplit;
 import observers.PersonUpdaters;
 import person.Person;
 import factory.PersonFactory;
 import tag.Tag;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main
 {
@@ -38,25 +36,49 @@ public class Main
         Person person3 = PersonFactory.makePerson("Persoon Nr 3");
 
         TicketFactoryMaker ticketFactoryMaker = new TicketFactoryMaker(tickets_controller);
-        TicketFactoryEvenSplit ticketFactory = ticketFactoryMaker.makeEvenTicketFactory();
+        TicketFactoryEvenSplit ticketFactoryEven = ticketFactoryMaker.makeEvenTicketFactory();
 
         Set<Person> people_who_paid_nr1 = new HashSet<>();
         people_who_paid_nr1.add(person2);
         people_who_paid_nr1.add(person3);
-
-        List<Tag> tags = new ArrayList<>();
-        tags.add(Tag.AIRPLANE);
 
         System.out.println(person1);
         System.out.println(person2);
         System.out.println(person3);
 
         System.out.println("Ticket gemaakt");
-        ticketFactory.makeEvenTicket(person1, 100, people_who_paid_nr1, tags, "wheeeee");
+        ticketFactoryEven.makeEvenTicket(person1, 100, people_who_paid_nr1, Tag.AIRPLANE, "wheeeee");
 
         System.out.println(person1);
         System.out.println(person2);
         System.out.println(person3);
+
+        TicketFactoryUnevenSplit ticketFactoryUneven = ticketFactoryMaker.makeUnevenTicketFactory();
+
+        HashMap<Person, Double> pers2_tergebtalingen = new HashMap<>();
+        pers2_tergebtalingen.put(person1, 20.0);
+        pers2_tergebtalingen.put(person3, 40.0);
+
+        System.out.println("uneven");
+        ticketFactoryUneven.makeUnevenTicket(person2, pers2_tergebtalingen, Tag.AIRPLANE, "test");
+        System.out.println(person1);
+        System.out.println(person2);
+        System.out.println(person3);
+
+        System.out.println("terugbetaling");
+        ticketFactoryUneven.makeUnevenTicket(person2, pers2_tergebtalingen, Tag.TERUGBETALING, "test");
+        System.out.println(person1);
+        System.out.println(person2);
+        System.out.println(person3);
+
+        System.out.println("\n1");
+        print(tickets_controller.getGlobelBill(person1));
+
+        System.out.println("\n3 ");
+        print(tickets_controller.getGlobelBill(person3));
+
+        System.out.println("\n2 ");
+        print(tickets_controller.getGlobelBill(person2));
 
 
 
@@ -119,6 +141,15 @@ public class Main
         register.checkOut(e2);
         sleep(1000);
         register.checkOut(e3);*/
+    }
+
+    public void print(HashMap<Person, Double> map){
+        for (Person person : map.keySet()){
+            System.out.print(person.getName());
+            System.out.print(": ");
+            System.out.print(map.get(person));
+        }
+        System.out.println();
     }
 
     public void sleep(int millis)

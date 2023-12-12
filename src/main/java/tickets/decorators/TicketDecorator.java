@@ -5,6 +5,7 @@ import tickets.ITicket;
 
 import java.util.AbstractMap;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class TicketDecorator implements ITicket {
@@ -28,7 +29,7 @@ public abstract class TicketDecorator implements ITicket {
     }
 
     @Override
-    public List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson() {
+    public HashMap<Person, Double> getTotalPerPerson() {
         return decoratedTicket.getTotalPerPerson();
     }
 
