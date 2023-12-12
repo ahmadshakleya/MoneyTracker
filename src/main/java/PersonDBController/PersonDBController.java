@@ -19,7 +19,7 @@ public class PersonDBController {
     }
 
     public Person getPersonByID(Integer ID) {
-        return personDB.getEntry(ID);
+        return personDB.getEntry(String.valueOf(ID));
     }
 
     public void addObserver(PropertyChangeListener listener) {
