@@ -49,4 +49,8 @@ public class PersonDB
     public void removeObserver(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
+
+    public HashMap<String, Person> showPeople() {
+        return db;
+    }
 }
