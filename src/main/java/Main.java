@@ -1,30 +1,28 @@
 import controller.TicketsDBController;
 import database.TicketsDB;
+import factory.PersonFactory;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
 import factory.TicketFactoryUnevenSplit;
 import observers.PersonUpdaters;
 import person.Person;
-import factory.PersonFactory;
 import tag.Tag;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
+public class Main {
+    public Main() {
+
+    }
+
+    public static void main(String[] args) {
         Main main = new Main();
         main.run();
     }
 
-    public Main()
-    {
-
-    }
-
-    public void run()
-    {
+    public void run() {
 
         // NIET VERWIJDEREN. DIT KAN EEN INTEGRATION TEST WORDEN
         TicketsDB ticketsDB = TicketsDB.getInstance();
@@ -82,7 +80,28 @@ public class Main
         System.out.println("\n2 ");
         print(tickets_controller.getGlobelBill(person2));
 
+        Person per4 = PersonFactory.makePerson("per4");
+        Person per5 = PersonFactory.makePerson("per5");
 
+        HashMap<Person, Double> pay5 = new HashMap<>();
+        HashMap<Person, Double> pay3 = new HashMap<>();
+
+        pay5.put(person2, 40.0);
+        ticketFactoryUneven.makeUnevenTicket(per5, pay5, Tag.CONCERT, "test");
+
+        pay3.put(per4, 20.0);
+        ticketFactoryUneven.makeUnevenTicket(person3, pay3, Tag.CONCERT, "test");
+
+        System.out.println("\n1");
+        print(tickets_controller.getGlobelBill(person1));
+        System.out.println("\n2");
+        print(tickets_controller.getGlobelBill(person2));
+        System.out.println("\n3");
+        print(tickets_controller.getGlobelBill(person3));
+        System.out.println("\n4");
+        print(tickets_controller.getGlobelBill(per4));
+        System.out.println("\n5");
+        print(tickets_controller.getGlobelBill(per5));
 
         /*
         ViewFrame view = new ViewFrame(tickets_register);
@@ -102,7 +121,6 @@ public class Main
         ITicket ticket = new TicketEvenSplit(20, participants, "New Ticket");
 
         tickets_register.addTicket(person1, ticket);*/
-
 
 
         //tickets_register.addTicket(person2, ticket);
@@ -145,8 +163,8 @@ public class Main
         register.checkOut(e3);*/
     }
 
-    public void print(HashMap<Person, Double> map){
-        for (Person person : map.keySet()){
+    public void print(HashMap<Person, Double> map) {
+        for (Person person : map.keySet()) {
             System.out.print(person.getName());
             System.out.print(": ");
             System.out.print(map.get(person));
@@ -154,15 +172,12 @@ public class Main
         System.out.println();
     }
 
-    public void sleep(int millis)
-    {
-        try
-        {
+    public void sleep(int millis) {
+        try {
             System.out.print("Sleeping [    ]\r");
             Thread.sleep(millis);
             System.out.println("Sleeping [ OK ]");
-        } catch (InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

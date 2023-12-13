@@ -24,7 +24,7 @@ public class PersonUpdaters implements PropertyChangeListener {
             teken = -1.0;
         }else {
             teken = 1.0;
-        }
+        }//todo: denk ni dat dit juist werkt
 
         HashMap<Person, Double> totalPerPerson =  ticket.getTotalPerPerson();
         for (Person person : totalPerPerson.keySet()){
