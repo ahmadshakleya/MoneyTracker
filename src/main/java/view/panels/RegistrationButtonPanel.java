@@ -1,6 +1,6 @@
 package view.panels;
 
-import controller.TicketsDBController;
+import controller.MoneyTrackerController;
 import person.Person;
 import factory.PersonFactory;
 
@@ -12,14 +12,14 @@ public class RegistrationButtonPanel extends JPanel {
     private JButton removeTicket;
 
     // Get your controller in this private field
-    private TicketsDBController t_controller;
+    private MoneyTrackerController t_controller;
 
     // For now, just make a new person in this class via your factory.
     // You can change this later on to a more unified way
     private Person person;
 
     // Get your controller in this class via the constructor
-    public RegistrationButtonPanel(TicketsDBController t_controller)
+    public RegistrationButtonPanel(MoneyTrackerController t_controller)
     {
         this.t_controller = t_controller;
         JLabel label = new JLabel("Registration buttons");

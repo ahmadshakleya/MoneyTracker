@@ -1,9 +1,11 @@
 package TicketsDBController;
 
+import controller.MoneyTrackerController;
 import org.junit.Before;
+import org.junit.Test;
 
-public class TicketsDBController_UTest {
-    public TicketsDBController_UTest() {
+public class MoneyTrackerController_UTest {
+    public MoneyTrackerController_UTest() {
 
     }
 
@@ -14,7 +16,7 @@ public class TicketsDBController_UTest {
     /*
     @Test
     public void testAddParticipant() {
-        TicketsDBController TicketsDBController = new TicketsDBController("Vakantie");
+        MoneyTrackerController TicketsDBController = new MoneyTrackerController("Vakantie");
         Person person = Mockito.mock(Person.class);
         TicketsDBController.addParticipant(person);
         Assert.assertEquals(1, TicketsDBController.getParticipants().size());
@@ -90,7 +92,7 @@ public class TicketsDBController_UTest {
         Assert.assertEquals(-100.0, TicketsDBController.getParticipants().get(0).getAmountOwed(), 0.001);
         Assert.assertEquals(0.0, TicketsDBController.getParticipants().get(1).getAmountOwed(), 0.001);
     }
+*/
 
-     */
 
 }

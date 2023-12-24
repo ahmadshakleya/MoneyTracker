@@ -5,10 +5,11 @@ import person.Person;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
+import org.json.JSONObject;
 
 public class PersonDB
 {
-    private final HashMap<String, Person> db;
+    private HashMap<String, Person> db;
 
     // Static variable to hold the single instance
     private static PersonDB instance;
@@ -53,4 +54,10 @@ public class PersonDB
     public HashMap<String, Person> showPeople() {
         return db;
     }
+
+    public void reset(){
+        support = new PropertyChangeSupport(this);
+        this.db = new HashMap<>();
+    }
+
 }

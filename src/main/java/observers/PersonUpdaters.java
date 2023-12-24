@@ -18,17 +18,5 @@ public class PersonUpdaters implements PropertyChangeListener {
         Person personWhoPaid = (Person) propertyChangeEvent.getOldValue();
 
         personWhoPaid.addExpense(ticket.getTotal());
-
-        double teken;
-        if (ticket.getTag() == Tag.TERUGBETALING){
-            teken = -1.0;
-        }else {
-            teken = 1.0;
-        }//todo: denk ni dat dit juist werkt
-
-        HashMap<Person, Double> totalPerPerson =  ticket.getTotalPerPerson();
-        for (Person person : totalPerPerson.keySet()){
-            person.changeAmountOwed(totalPerPerson.get(person) * teken);
-        }
     }
 }

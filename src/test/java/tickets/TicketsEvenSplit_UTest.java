@@ -41,21 +41,14 @@ public class TicketsEvenSplit_UTest {
         Person mock_Person3 = Mockito.mock(Person.class);
 
         Mockito.when(mock_Person1.getName()).thenReturn("Jan");
-        Mockito.when(mock_Person1.getLastName()).thenReturn("Man");
-
         Mockito.when(mock_Person2.getName()).thenReturn("Per");
-        Mockito.when(mock_Person2.getLastName()).thenReturn("Soon");
-
         Mockito.when(mock_Person3.getName()).thenReturn("Hu");
-        Mockito.when(mock_Person3.getLastName()).thenReturn("Man");
-
-
 
         mock_People.add(mock_Person1);
         mock_People.add(mock_Person2);
         mock_People.add(mock_Person3);
 
-        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(100.0, mock_People);
+        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(100.0, mock_People, "");
 
         double expectedTotal = 100;
 

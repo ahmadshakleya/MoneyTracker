@@ -1,12 +1,12 @@
 package factory;
 
-import controller.TicketsDBController;
+import controller.MoneyTrackerController;
 
 public class TicketFactoryMaker {
 
-    private final TicketsDBController controller;
+    private final MoneyTrackerController controller;
 
-    public TicketFactoryMaker(TicketsDBController controller){
+    public TicketFactoryMaker(MoneyTrackerController controller){
         this.controller = controller;
     }
 

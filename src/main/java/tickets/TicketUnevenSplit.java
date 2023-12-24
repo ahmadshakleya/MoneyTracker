@@ -16,12 +16,12 @@ public class TicketUnevenSplit extends AbstractTicket {
      */
     private final HashMap<Person, Double> terugbetaling;
 
-    public TicketUnevenSplit(HashMap<Person, Double> terugbetalingen, String description) {
+    public TicketUnevenSplit(HashMap<Person, Double> terugbetalingen, double payerPersonalContribution, String description) {
         this.terugbetaling = terugbetalingen;
         this.description = description;
         Calendar calendar = Calendar.getInstance();
         this.date = calendar.getTime();
-        this.total = terugbetalingen.values().stream().mapToDouble(Double::doubleValue).sum();
+        this.total = terugbetalingen.values().stream().mapToDouble(Double::doubleValue).sum() + payerPersonalContribution;
 
     }
 

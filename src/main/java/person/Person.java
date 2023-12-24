@@ -8,18 +8,14 @@ public class Person {
     private static int ClassID = 0;
     private final int ID;
     private String name;
-
     private double expensesPaid; // Hoeveel ik zelf heb betaald.
-    private double amountOwed; // Hoeveel moet ik aan een ander betalen.
-    private Set<Person> peopleIOwe;
 
     public Person(String name) {
         this.name = name;
         ClassID++;
         ID = ClassID;
-
         expensesPaid = 0.0;
-        amountOwed = 0.0;
+
     }
 
     public int getID() {
@@ -38,49 +34,13 @@ public class Person {
         return expensesPaid;
     }
 
-    public double getAmountOwed() {
-        return amountOwed;
-    }
-
-    public void changeAmountOwed(double amountOwed) {
-        this.amountOwed += amountOwed;
-    }
-
-    public void addExpense(double expense){
+    public void addExpense(double expense) {
 
         this.expensesPaid += expense;
     }
 
-    public void resetExpensesAndAmountOwed() {
+    public void resetExpenses() {
         this.expensesPaid = 0.0;
-        this.amountOwed = 0.0;
-    }
-
-    public void addPeopleIOwe(Person person){
-        peopleIOwe.add(person);
-    }
-
-    public Set<Person> getPeopleIOwe(){
-        return peopleIOwe;
-    }
-
-    // The following function may be removed or placed somewhere else:
-    /*
-    Refactor calculateAmountOwed Method:
-
-Instead of directly calculating the owed amount within the Person class,
-it's better to perform such calculations in a separate manager class.
-Remove the calculateAmountOwed method from the Person class, as it couples
-the logic of debt calculation with the person entity.
-This separation adheres more to the principle of single responsibility.
-     */
-    public double calculateAmountOwed(double totalExpenses, int totalParticipants) throws NegativeNumberException {
-        if (totalParticipants <= 0 || totalExpenses < 0) {
-            throw new NegativeNumberException("Invalid totalExpenses or totalParticipants");
-        }
-
-        double eachShare = totalExpenses / totalParticipants;
-        return eachShare - this.expensesPaid;
     }
 
     @Override
@@ -89,7 +49,6 @@ This separation adheres more to the principle of single responsibility.
                 "ID=" + ID +
                 ", name='" + name + '\'' +
                 ", expensesPaid=" + expensesPaid +
-                ", amountOwed=" + amountOwed +
                 '}';
     }
 }

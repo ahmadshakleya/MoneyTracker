@@ -1,5 +1,4 @@
-import controller.TicketsDBController;
-import database.TicketsDB;
+import controller.MoneyTrackerController;
 import factory.PersonFactory;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
@@ -17,25 +16,24 @@ public class Main {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Main main = new Main();
         main.run();
     }
 
-    public void run() {
+    public void run() throws Exception {
 
-        // NIET VERWIJDEREN. DIT KAN EEN INTEGRATION TEST WORDEN
-        TicketsDB ticketsDB = TicketsDB.getInstance();
-        TicketsDBController tickets_controller = new TicketsDBController(ticketsDB);
+        // mag verwijder worden. Deze code zit nu in een integration test
+        MoneyTrackerController controller = new MoneyTrackerController();
         PersonUpdaters personUpdaters = new PersonUpdaters();
 
-        tickets_controller.addObserver(personUpdaters);
+        controller.addTicketsDBObserver(personUpdaters);
 
-        Person person1 = PersonFactory.makePerson("Persoon Nr 1");
-        Person person2 = PersonFactory.makePerson("Persoon Nr 2");
-        Person person3 = PersonFactory.makePerson("Persoon Nr 3");
+        Person person1 = controller.makePerson("Persoon Nr 1");
+        Person person2 = controller.makePerson("Persoon Nr 2");
+        Person person3 = controller.makePerson("Persoon Nr 3");
 
-        TicketFactoryMaker ticketFactoryMaker = new TicketFactoryMaker(tickets_controller);
+        TicketFactoryMaker ticketFactoryMaker = new TicketFactoryMaker(controller);
         TicketFactoryEvenSplit ticketFactoryEven = ticketFactoryMaker.makeEvenTicketFactory();
 
         Set<Person> people_who_paid_nr1 = new HashSet<>();
@@ -60,25 +58,25 @@ public class Main {
         pers2_tergebtalingen.put(person3, 40.0);
 
         System.out.println("uneven");
-        ticketFactoryUneven.makeUnevenTicket(person2, pers2_tergebtalingen, Tag.AIRPLANE, "test");
+        ticketFactoryUneven.makeUnevenTicket(person2, 10.0, pers2_tergebtalingen, Tag.AIRPLANE, "test");
         System.out.println(person1);
         System.out.println(person2);
         System.out.println(person3);
 
         System.out.println("terugbetaling");
-        ticketFactoryUneven.makeUnevenTicket(person2, pers2_tergebtalingen, Tag.TERUGBETALING, "test");
+        ticketFactoryUneven.makeUnevenTicket(person2, 0.0, pers2_tergebtalingen, Tag.TERUGBETALING, "test");
         System.out.println(person1);
         System.out.println(person2);
         System.out.println(person3);
 
         System.out.println("\n1");
-        print(tickets_controller.getGlobelBill(person1));
+        print(controller.getGlobelBill(person1));
 
         System.out.println("\n3 ");
-        print(tickets_controller.getGlobelBill(person3));
+        print(controller.getGlobelBill(person3));
 
         System.out.println("\n2 ");
-        print(tickets_controller.getGlobelBill(person2));
+        print(controller.getGlobelBill(person2));
 
         Person per4 = PersonFactory.makePerson("per4");
         Person per5 = PersonFactory.makePerson("per5");
@@ -87,21 +85,28 @@ public class Main {
         HashMap<Person, Double> pay3 = new HashMap<>();
 
         pay5.put(person2, 40.0);
-        ticketFactoryUneven.makeUnevenTicket(per5, pay5, Tag.CONCERT, "test");
+        ticketFactoryUneven.makeUnevenTicket(per5, 0.0, pay5, Tag.CONCERT, "test");
 
         pay3.put(per4, 20.0);
-        ticketFactoryUneven.makeUnevenTicket(person3, pay3, Tag.CONCERT, "test");
+        ticketFactoryUneven.makeUnevenTicket(person3, 0.0, pay3, Tag.CONCERT, "test");
 
+        System.out.println();
         System.out.println("\n1");
-        print(tickets_controller.getGlobelBill(person1));
+        print(controller.getGlobelBill(person1));
+        System.out.println(person1);
+
         System.out.println("\n2");
-        print(tickets_controller.getGlobelBill(person2));
+        print(controller.getGlobelBill(person2));
+        System.out.println(person2);
         System.out.println("\n3");
-        print(tickets_controller.getGlobelBill(person3));
+        print(controller.getGlobelBill(person3));
+        System.out.println(person3);
         System.out.println("\n4");
-        print(tickets_controller.getGlobelBill(per4));
+        print(controller.getGlobelBill(per4));
+        System.out.println(per4);
         System.out.println("\n5");
-        print(tickets_controller.getGlobelBill(per5));
+        print(controller.getGlobelBill(per5));
+        System.out.println(per5);
 
         /*
         ViewFrame view = new ViewFrame(tickets_register);
@@ -168,6 +173,7 @@ public class Main {
             System.out.print(person.getName());
             System.out.print(": ");
             System.out.print(map.get(person));
+            System.out.print(" ");
         }
         System.out.println();
     }

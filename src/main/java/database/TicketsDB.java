@@ -1,5 +1,6 @@
 package database;
 
+import org.json.JSONArray;
 import person.Person;
 import tag.Tag;
 import tickets.ITicket;
@@ -10,11 +11,12 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.json.JSONObject;
 
 public class TicketsDB {
     // Static variable to hold the single instance
     private static TicketsDB instance;
-    private final HashMap<Person, ArrayList<ITicket>> db;
+    private HashMap<Person, ArrayList<ITicket>> db;
     protected PropertyChangeSupport support;
 
     // Private constructor to prevent instantiation
@@ -54,6 +56,11 @@ public class TicketsDB {
 
     public void removeObserver(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
+    }
+
+    public void reset(){
+        support = new PropertyChangeSupport(this);
+        this.db = new HashMap<>();
     }
 
     //mensen aan wie de persoon geld verschuldigd is

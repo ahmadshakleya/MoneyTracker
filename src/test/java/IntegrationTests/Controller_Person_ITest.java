@@ -1,8 +1,5 @@
 package IntegrationTests;
-
-import controller.Controller;
-import controller.RegistrationController;
-import database.Database;
+/*
 import person.Person;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +22,7 @@ public class Controller_Person_ITest {
      * the mock constructor returns a mock object but the checkIn method of the RegistrationController uses the real constructor
      * I solved this my omitting the second argument of addEntry for the verification.
      * @throws Exception
-     */
+
     @Test
     public void t_controller_employee() throws Exception{
         Database mock_db = Mockito.mock(Database.class);
@@ -41,3 +38,4 @@ public class Controller_Person_ITest {
 
     }
 }
+*/
