@@ -1,6 +1,7 @@
 package database;
 
-import org.json.JSONArray;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import person.Person;
 import tag.Tag;
 import tickets.ITicket;
@@ -11,7 +12,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONObject;
+import java.util.stream.Collectors;
+
 
 public class TicketsDB {
     // Static variable to hold the single instance
@@ -42,6 +44,11 @@ public class TicketsDB {
         support.firePropertyChange("Entry: ", person, ticket);
     }
 
+    public void loadEntry(Person person, ITicket ticket){
+        ArrayList<ITicket> ticketsForPerson = db.computeIfAbsent(person, k -> new ArrayList<>());
+        ticketsForPerson.add(ticket);
+    }
+
     public ArrayList<ITicket> getEntry(Person person) {
         return this.db.get(person);
     }
@@ -61,6 +68,17 @@ public class TicketsDB {
     public void reset(){
         support = new PropertyChangeSupport(this);
         this.db = new HashMap<>();
+    }
+
+    public JSONObject toJson(){
+        JSONObject jsonObject = new JSONObject();
+        for (Person person : db.keySet()){
+            JSONArray jsonArray = new JSONArray();
+            db.get(person).stream().map(ITicket::toJson).forEach(jsonArray::add);
+
+            jsonObject.put(person.getName(), jsonArray);
+        }
+        return jsonObject;
     }
 
     //mensen aan wie de persoon geld verschuldigd is

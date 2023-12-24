@@ -116,4 +116,20 @@ public class MoneyTrackerController_ITest {
         Assert.assertEquals(0.0, globelBillPerson5.getOrDefault(person4, 0.0), 0.001);
         Assert.assertEquals(0.0, globelBillPerson5.getOrDefault(person5, 0.0), 0.001);
     }
+
+    @Test
+    public void test_json() throws Exception {
+        controller.saveData();
+        controller.resetDB();
+        controller.loadData();
+
+        person1 = controller.getPerson(person1.getName());
+        person2 = controller.getPerson(person2.getName());
+        person3 = controller.getPerson(person3.getName());
+        person4 = controller.getPerson(person4.getName());
+        person5 = controller.getPerson(person5.getName());
+
+        test_getExpensesPaid();
+        test_getGlobalBill();
+    }
 }

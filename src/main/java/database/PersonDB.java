@@ -1,11 +1,12 @@
 package database;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import person.Person;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
-import org.json.JSONObject;
 
 public class PersonDB
 {
@@ -60,4 +61,15 @@ public class PersonDB
         this.db = new HashMap<>();
     }
 
+    public JSONArray toJson(){
+        JSONArray jsonArray = new JSONArray();
+        for (String key : db.keySet()){
+            jsonArray.add(db.get(key).toJson());
+        }
+        return jsonArray;
+    }
+
+    public ArrayList<Person> getAllPeople(){
+        return new ArrayList<>(db.values());
+    }
 }

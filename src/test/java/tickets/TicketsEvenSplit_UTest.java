@@ -33,8 +33,7 @@ public class TicketsEvenSplit_UTest {
     }
 
     @Test
-    public void t_getTotal() throws Exception
-    {
+    public void t_getTotal() {
         Set<Person> mock_People = new HashSet<>();
         Person mock_Person1 = Mockito.mock(Person.class);
         Person mock_Person2 = Mockito.mock(Person.class);

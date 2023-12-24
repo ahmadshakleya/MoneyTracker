@@ -9,6 +9,7 @@ import tag.Tag;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Main {
@@ -18,7 +19,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        main.run();
+        main.load();
+        //main.run();
     }
 
     public void run() throws Exception {
@@ -78,8 +80,8 @@ public class Main {
         System.out.println("\n2 ");
         print(controller.getGlobelBill(person2));
 
-        Person per4 = PersonFactory.makePerson("per4");
-        Person per5 = PersonFactory.makePerson("per5");
+        Person per4 = controller.makePerson("per4");
+        Person per5 = controller.makePerson("per5");
 
         HashMap<Person, Double> pay5 = new HashMap<>();
         HashMap<Person, Double> pay3 = new HashMap<>();
@@ -89,6 +91,7 @@ public class Main {
 
         pay3.put(per4, 20.0);
         ticketFactoryUneven.makeUnevenTicket(person3, 0.0, pay3, Tag.CONCERT, "test");
+
 
         System.out.println();
         System.out.println("\n1");
@@ -107,6 +110,8 @@ public class Main {
         System.out.println("\n5");
         print(controller.getGlobelBill(per5));
         System.out.println(per5);
+
+        controller.saveData();
 
         /*
         ViewFrame view = new ViewFrame(tickets_register);
@@ -166,6 +171,23 @@ public class Main {
         register.checkOut(e2);
         sleep(1000);
         register.checkOut(e3);*/
+    }
+
+    public void load(){
+        MoneyTrackerController controller = new MoneyTrackerController();
+        PersonUpdaters personUpdaters = new PersonUpdaters();
+
+        controller.addTicketsDBObserver(personUpdaters);
+
+        controller.loadData();
+        List<Person> people = controller.getAllPeople();
+
+        for (Person person : people){
+            System.out.println(person.getName());
+            System.out.println(person);
+            print(controller.getGlobelBill(person));
+            System.out.println("");
+        }
     }
 
     public void print(HashMap<Person, Double> map) {

@@ -1,5 +1,6 @@
 package tickets.decorators;
 
+import org.json.simple.JSONObject;
 import person.Person;
 import tickets.ITicket;
 
@@ -42,4 +43,24 @@ public abstract class TicketDecorator implements ITicket {
     public void setIsPaid(boolean isPaid) {
         decoratedTicket.setIsPaid(isPaid);
     }
+
+    @Override
+    public JSONObject toJson() {
+        return decoratedTicket.toJson();
+    }
+
+    @Override
+    public void setDate(Date date) {decoratedTicket.setDate(date);}
+
+    @Override
+    public void setDescription(String description) {decoratedTicket.setDescription(description);}
+
+    @Override
+    public void setTotal(double total) {decoratedTicket.setTotal(total);}
+
+    @Override
+    public void setPaid(boolean paid) {decoratedTicket.setPaid(paid);}
+
+    @Override
+    public void setTerugbetaling(HashMap<Person, Double> terugbetaling) {decoratedTicket.setTerugbetaling(terugbetaling);}
 }

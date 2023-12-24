@@ -1,5 +1,6 @@
 package tickets;
 
+import org.json.simple.JSONObject;
 import person.Person;
 
 import java.util.AbstractMap;
@@ -8,13 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TicketUnevenSplit extends AbstractTicket {
-
-    /**
-     * Lijst van terugbetalingen per persoon.
-     * SimpleEntry.getKey() voor de naam te krijgen
-     * SimpleEntry.getValue() voor de waarde te krijgen
-     */
-    private final HashMap<Person, Double> terugbetaling;
 
     public TicketUnevenSplit(HashMap<Person, Double> terugbetalingen, double payerPersonalContribution, String description) {
         this.terugbetaling = terugbetalingen;
@@ -29,5 +23,12 @@ public class TicketUnevenSplit extends AbstractTicket {
     @Override
     public HashMap<Person, Double> getTotalPerPerson() {
         return terugbetaling;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = super.toJson();
+        jsonObject.put("type:", "uneven");
+        return jsonObject;
     }
 }

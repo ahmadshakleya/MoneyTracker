@@ -21,13 +21,6 @@ public class Person_UTest {
     }
 
     @Test
-    public void testSetName() {
-        Person person = new Person("John Doe");
-        person.setName("Alice");
-        Assert.assertEquals("Alice", person.getName());
-    }
-
-    @Test
     public void testAddExpense() throws NegativeNumberException {
         Person person = new Person("John Doe");
         person.addExpense(50.0);
@@ -35,10 +28,9 @@ public class Person_UTest {
     }
 
     @Test
-    public void testResetExpensesAndAmountOwed() throws NegativeNumberException {
+    public void testResetExpenses() throws NegativeNumberException {
         Person person = new Person("John Doe");
         person.addExpense(50.0);
-        //person.setAmountOwed(20.0);
         person.resetExpenses();
         Assert.assertEquals(0.0, person.getExpensesPaid(), 0.001);
     }
