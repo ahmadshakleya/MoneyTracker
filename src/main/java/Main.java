@@ -13,6 +13,9 @@ import java.util.Set;
 
 public class Main {
     public Main() {
+        //TODO: Use case diagram of application
+        //TODO: PowerPoint
+        //TODO: Visualization
 
     }
 
