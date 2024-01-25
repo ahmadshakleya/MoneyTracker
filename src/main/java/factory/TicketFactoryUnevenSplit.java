@@ -18,7 +18,7 @@ public class TicketFactoryUnevenSplit {
         this.controller = controller;
     }
 
-    public void makeUnevenTicket(Person payer, double payerPersonalContribution, HashMap<Person, Double> terugbetalingen, Tag tag, String description) throws Exception {
+    public void makeUnevenTicket(Person whoHasPaid, double payerPersonalContribution, HashMap<Person, Double> terugbetalingen, Tag tag, String description) throws Exception {
         if (tag.equals(Tag.TERUGBETALING) && payerPersonalContribution != 0.0){
             throw new ticketException("voor terugbetaling moet 'payerPersonalContribution' == 0.0");
         }
@@ -29,6 +29,6 @@ public class TicketFactoryUnevenSplit {
 
         ITicket ticket = new TicketUnevenSplit(terugbetalingen, payerPersonalContribution, description);
         ITicket taggedTicket = new TaggedTicket(ticket, tag);
-        controller.addTicket(payer, taggedTicket);
+        controller.addTicket(whoHasPaid, taggedTicket);
     }
 }

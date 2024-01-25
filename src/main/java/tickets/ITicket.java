@@ -22,13 +22,11 @@ public interface ITicket {
 
     HashMap<Person, Double> getTotalPerPerson();
 
+    void setTotalPerPerson(HashMap<Person, Double> terugbetaling);
+
     boolean getIsPaid();
 
     void setIsPaid(boolean isPaid);
 
     JSONObject toJson();
-
-    void setPaid(boolean paid);
-
-    void setTerugbetaling(HashMap<Person, Double> terugbetaling);
 }

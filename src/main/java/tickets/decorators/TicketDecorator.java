@@ -4,10 +4,8 @@ import org.json.simple.JSONObject;
 import person.Person;
 import tickets.ITicket;
 
-import java.util.AbstractMap;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public abstract class TicketDecorator implements ITicket {
     protected ITicket decoratedTicket;
@@ -59,8 +57,5 @@ public abstract class TicketDecorator implements ITicket {
     public void setTotal(double total) {decoratedTicket.setTotal(total);}
 
     @Override
-    public void setPaid(boolean paid) {decoratedTicket.setPaid(paid);}
-
-    @Override
-    public void setTerugbetaling(HashMap<Person, Double> terugbetaling) {decoratedTicket.setTerugbetaling(terugbetaling);}
+    public void setTotalPerPerson(HashMap<Person, Double> terugbetaling) {decoratedTicket.setTotalPerPerson(terugbetaling);}
 }

@@ -3,11 +3,6 @@ package person;
 import org.json.simple.JSONObject;
 
 public class Person {
-
-    // TODO: Ik denk niet dat deze gebruikt worden? verwijderen?
-    // private static int ClassID = 0;
-    // private final int ID;
-
     private final String name;
     private double expensesPaid; // Hoeveel ik zelf heb betaald.
 

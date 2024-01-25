@@ -59,17 +59,17 @@ public abstract class AbstractTicket implements ITicket {
     }
 
     @Override
+    public HashMap<Person, Double> getTotalPerPerson() {
+        return terugbetaling;
+    }
+
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
     @Override
-    public void setPaid(boolean paid) {
-        isPaid = paid;
-    }
-
-    @Override
-    public void setTerugbetaling(HashMap<Person, Double> terugbetaling) {
+    public void setTotalPerPerson(HashMap<Person, Double> terugbetaling) {
         this.terugbetaling = terugbetaling;
     }
 

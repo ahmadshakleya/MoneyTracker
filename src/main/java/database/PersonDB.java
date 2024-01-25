@@ -52,10 +52,6 @@ public class PersonDB
         support.removePropertyChangeListener(listener);
     }
 
-    public HashMap<String, Person> showPeople() {
-        return db;
-    }
-
     public void reset(){
         support = new PropertyChangeSupport(this);
         this.db = new HashMap<>();

@@ -22,11 +22,6 @@ public class TicketEvenSplit extends AbstractTicket {
     }
 
     @Override
-    public HashMap<Person, Double> getTotalPerPerson() {
-        return terugbetaling;
-    }
-
-    @Override
     public JSONObject toJson() {
         JSONObject jsonObject = super.toJson();
         jsonObject.put("type:", "even");

@@ -7,7 +7,6 @@ import factory.PersonFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import person.Person;
 import tag.Tag;
 import tickets.ITicket;
@@ -113,6 +112,8 @@ public class MoneyTrackerController {
     }
 
     public void loadData() {
+        resetDB();
+
         try {
             JSONObject jsonData = (JSONObject) new JSONParser().parse(new String(Files.readAllBytes(Paths.get("data.json"))));
 
