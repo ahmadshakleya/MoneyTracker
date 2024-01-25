@@ -1,5 +1,4 @@
 import controller.MoneyTrackerController;
-import factory.PersonFactory;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
 import factory.TicketFactoryUnevenSplit;
@@ -72,13 +71,13 @@ public class Main {
         System.out.println(person3);
 
         System.out.println("\n1");
-        print(controller.getGlobelBill(person1));
+        print(controller.getPeopleCreditorsOf(person1));
 
         System.out.println("\n3 ");
-        print(controller.getGlobelBill(person3));
+        print(controller.getPeopleCreditorsOf(person3));
 
         System.out.println("\n2 ");
-        print(controller.getGlobelBill(person2));
+        print(controller.getPeopleCreditorsOf(person2));
 
         Person per4 = controller.makePerson("per4");
         Person per5 = controller.makePerson("per5");
@@ -95,20 +94,20 @@ public class Main {
 
         System.out.println();
         System.out.println("\n1");
-        print(controller.getGlobelBill(person1));
+        print(controller.getPeopleCreditorsOf(person1));
         System.out.println(person1);
 
         System.out.println("\n2");
-        print(controller.getGlobelBill(person2));
+        print(controller.getPeopleCreditorsOf(person2));
         System.out.println(person2);
         System.out.println("\n3");
-        print(controller.getGlobelBill(person3));
+        print(controller.getPeopleCreditorsOf(person3));
         System.out.println(person3);
         System.out.println("\n4");
-        print(controller.getGlobelBill(per4));
+        print(controller.getPeopleCreditorsOf(per4));
         System.out.println(per4);
         System.out.println("\n5");
-        print(controller.getGlobelBill(per5));
+        print(controller.getPeopleCreditorsOf(per5));
         System.out.println(per5);
 
         controller.saveData();
@@ -185,7 +184,7 @@ public class Main {
         for (Person person : people){
             System.out.println(person.getName());
             System.out.println(person);
-            print(controller.getGlobelBill(person));
+            print(controller.getPeopleCreditorsOf(person));
             System.out.println("");
         }
     }

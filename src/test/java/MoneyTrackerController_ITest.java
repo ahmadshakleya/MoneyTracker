@@ -1,5 +1,3 @@
-package IntegrationTests;
-
 import controller.MoneyTrackerController;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
@@ -80,41 +78,48 @@ public class MoneyTrackerController_ITest {
     @Test
     public void test_getGlobalBill() throws Exception {
 
-        HashMap<Person, Double> globelBillPerson1 = controller.getGlobelBill(person1);
-        Assert.assertEquals(-6.6666, globelBillPerson1.get(person2) , 0.001);
-        Assert.assertEquals(33.3333, globelBillPerson1.get(person3), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson1.getOrDefault(person1, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson1.getOrDefault(person4, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson1.getOrDefault(person5, 0.0), 0.001);
+        HashMap<Person, Double> creditorsOfPerson1 = controller.getPeopleCreditorsOf(person1);
+        Assert.assertEquals(-6.6666, creditorsOfPerson1.get(person2) , 0.001);
+        Assert.assertEquals(33.3333, creditorsOfPerson1.get(person3), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson1.getOrDefault(person1, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson1.getOrDefault(person4, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson1.getOrDefault(person5, 0.0), 0.001);
 
 
-        HashMap<Person, Double> globelBillPerson2 = controller.getGlobelBill(person2);
-        Assert.assertEquals(6.6666, globelBillPerson2.get(person1) , 0.001);
-        Assert.assertEquals(80, globelBillPerson2.get(person3), 0.001);
-        Assert.assertEquals(-40, globelBillPerson2.get(person5), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson2.getOrDefault(person2, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson2.getOrDefault(person4, 0.0), 0.001);
+        HashMap<Person, Double> creditorsOfPerson2 = controller.getPeopleCreditorsOf(person2);
+        Assert.assertEquals(6.6666, creditorsOfPerson2.get(person1) , 0.001);
+        Assert.assertEquals(80, creditorsOfPerson2.get(person3), 0.001);
+        Assert.assertEquals(-40, creditorsOfPerson2.get(person5), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson2.getOrDefault(person2, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson2.getOrDefault(person4, 0.0), 0.001);
 
 
-        HashMap<Person, Double> globelBillPerson3 = controller.getGlobelBill(person3);
-        Assert.assertEquals(-33.3333, globelBillPerson3.get(person1) , 0.001);
-        Assert.assertEquals(-80, globelBillPerson3.get(person2), 0.001);
-        Assert.assertEquals(20, globelBillPerson3.get(person4), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson3.getOrDefault(person3, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson3.getOrDefault(person5, 0.0), 0.001);
+        HashMap<Person, Double> creditorsOfPerson3 = controller.getPeopleCreditorsOf(person3);
+        Assert.assertEquals(-33.3333, creditorsOfPerson3.get(person1) , 0.001);
+        Assert.assertEquals(-80, creditorsOfPerson3.get(person2), 0.001);
+        Assert.assertEquals(20, creditorsOfPerson3.get(person4), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson3.getOrDefault(person3, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson3.getOrDefault(person5, 0.0), 0.001);
 
-        HashMap<Person, Double> globelBillPerson4 = controller.getGlobelBill(person4);
-        Assert.assertEquals(-20, globelBillPerson4.get(person3) , 0.001);
-        Assert.assertEquals(0.0, globelBillPerson4.getOrDefault(person1, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson4.getOrDefault(person2, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson4.getOrDefault(person5, 0.0), 0.001);
+        HashMap<Person, Double> creditorsOfPerson4 = controller.getPeopleCreditorsOf(person4);
+        Assert.assertEquals(-20, creditorsOfPerson4.get(person3) , 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson4.getOrDefault(person1, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson4.getOrDefault(person2, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson4.getOrDefault(person5, 0.0), 0.001);
 
-        HashMap<Person, Double> globelBillPerson5 = controller.getGlobelBill(person5);
-        Assert.assertEquals(40, globelBillPerson5.get(person2) , 0.001);
-        Assert.assertEquals(0.0, globelBillPerson5.getOrDefault(person1, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson5.getOrDefault(person3, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson5.getOrDefault(person4, 0.0), 0.001);
-        Assert.assertEquals(0.0, globelBillPerson5.getOrDefault(person5, 0.0), 0.001);
+        HashMap<Person, Double> creditorsOfPerson5 = controller.getPeopleCreditorsOf(person5);
+        Assert.assertEquals(40, creditorsOfPerson5.get(person2) , 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson5.getOrDefault(person1, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson5.getOrDefault(person3, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson5.getOrDefault(person4, 0.0), 0.001);
+        Assert.assertEquals(0.0, creditorsOfPerson5.getOrDefault(person5, 0.0), 0.001);
+
+        HashMap<Person, HashMap<Person, Double>> globalBill = controller.getGlobalBill();
+        Assert.assertEquals(creditorsOfPerson1, globalBill.get(person1));
+        Assert.assertEquals(creditorsOfPerson2, globalBill.get(person2));
+        Assert.assertEquals(creditorsOfPerson3, globalBill.get(person3));
+        Assert.assertEquals(creditorsOfPerson4, globalBill.get(person4));
+        Assert.assertEquals(creditorsOfPerson5, globalBill.get(person5));
     }
 
     @Test

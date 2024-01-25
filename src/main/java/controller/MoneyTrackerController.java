@@ -66,8 +66,16 @@ public class MoneyTrackerController {
      * @param person De persoon voor wie we gaan zoeken wie hij gaat terug betalen
      * @return Lijst van mensen aan wie de persoon geld verschuldigd is.
      */
-    public HashMap<Person, Double> getGlobelBill(Person person) {
+    public HashMap<Person, Double> getPeopleCreditorsOf(Person person) {
         return ticketsDB.getPeopleCreditorsOf(person);
+    }
+
+    public HashMap<Person, HashMap<Person, Double>> getGlobalBill() {
+        HashMap<Person, HashMap<Person, Double>> globalBill = new HashMap<>();
+        for (Person i : personDB.getAllPeople()){
+            globalBill.put(i, getPeopleCreditorsOf(i));
+        }
+        return globalBill;
     }
 
     public void addPersonDBObserver(PropertyChangeListener listener) {

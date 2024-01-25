@@ -87,9 +87,11 @@ public class TicketsDB {
 
         //basis
         for (Map.Entry<Person, ArrayList<ITicket>> entry : this.db.entrySet()) {
-            for (ITicket ticket : entry.getValue()) {
-                TaggedTicket taggedTicket = (TaggedTicket) ticket;
+            if(entry.getKey() == person){
+                continue;
+            }
 
+            for (ITicket ticket : entry.getValue()) {
                 HashMap<Person, Double> totalPerPerson = ticket.getTotalPerPerson();
                 if (totalPerPerson.containsKey(person)) {
                     peopleCreditorsOfPerson.put(entry.getKey(), peopleCreditorsOfPerson.getOrDefault(entry.getKey(), 0.0) - totalPerPerson.get(person));
