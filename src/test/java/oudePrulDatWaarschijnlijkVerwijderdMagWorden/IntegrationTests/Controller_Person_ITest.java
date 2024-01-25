@@ -1,4 +1,4 @@
-package IntegrationTests;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.IntegrationTests;
 /*
 import person.Person;
 import org.junit.Before;

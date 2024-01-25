@@ -1,3 +1,5 @@
+package TestsDieWeVoorDeOpdrachtMoestenMaken;
+
 import controller.MoneyTrackerController;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;

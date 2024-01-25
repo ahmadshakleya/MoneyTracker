@@ -1,4 +1,4 @@
-package TicketsDBController;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.TicketsDBController;
 
 import controller.MoneyTrackerController;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package factory;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.factory;
 
 import person.Person;
 import org.junit.Before;

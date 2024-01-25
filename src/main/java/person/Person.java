@@ -8,19 +8,13 @@ public class Person {
 
     public Person(String name) {
         this.name = name;
-        //ClassID++;
-        //ID = ClassID;
         expensesPaid = 0.0;
 
     }
 
-    //public int getID() {return ID;}
-
     public String getName() {
         return name;
     }
-
-    //public void setName(String name) {this.name = name;}
 
     public double getExpensesPaid() {
         return expensesPaid;
@@ -42,7 +36,6 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                // "ID=" + ID +
                 "name='" + name + '\'' +
                 ", expensesPaid=" + expensesPaid +
                 '}';

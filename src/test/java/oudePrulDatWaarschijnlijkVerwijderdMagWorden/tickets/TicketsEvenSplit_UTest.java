@@ -1,4 +1,4 @@
-package tickets;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.tickets;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 
 import person.Person;
+import tickets.TicketEvenSplit;
 
 
 import java.util.HashSet;

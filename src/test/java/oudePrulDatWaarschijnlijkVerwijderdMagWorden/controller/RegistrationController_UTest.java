@@ -1,4 +1,4 @@
-package controller;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.controller;
 /*
 import person.Person;
 import org.junit.Before;

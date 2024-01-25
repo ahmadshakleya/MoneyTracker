@@ -1,4 +1,4 @@
-package IntegrationTests;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.IntegrationTests;
 /*
 import database.TicketsDB;
 import person.Person;

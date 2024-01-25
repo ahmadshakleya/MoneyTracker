@@ -1,4 +1,4 @@
-package database;
+package oudePrulDatWaarschijnlijkVerwijderdMagWorden.database;
 /*
 import person.Person;
 import org.junit.Assert;
