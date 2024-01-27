@@ -66,11 +66,11 @@ public class PersonsInDatabase extends JFrame{
 
 
 
-        /*
-        for (Person personName : db.showPeople().values()) { //gebruik MoneyTrackerController.getAllPeople
+
+        for (Person personName : db.getAllPeople()) {
             personListModel.addElement(personName.getName());
         }
-         */
+
     }
 
 

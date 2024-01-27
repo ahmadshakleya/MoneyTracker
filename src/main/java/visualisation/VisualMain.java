@@ -32,12 +32,9 @@ public class VisualMain {
             Thread.sleep(3000);
         }
 
-        /*
-        for (Person person: db.showPeople().values()){ //gebruik MoneyTrackerController.getAllPeople
+
+        for (Person person: db.getAllPeople()){
             System.out.println(person.getName());
         }
-
-         */
-
     }
 }
