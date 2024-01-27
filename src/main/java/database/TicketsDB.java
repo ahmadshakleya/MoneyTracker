@@ -116,4 +116,11 @@ public class TicketsDB {
         }
         return peopleCreditorsOfPerson;
     }
+    public ArrayList<ITicket> getAllTickets() {
+        ArrayList<ITicket> allTickets = new ArrayList<>();
+        for (ArrayList<ITicket> tickets : db.values()) {
+            allTickets.addAll(tickets);
+        }
+        return allTickets;
+    }
 }

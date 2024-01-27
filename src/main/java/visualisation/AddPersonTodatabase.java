@@ -1,6 +1,7 @@
 package visualisation;
 
 import database.PersonDB;
+import exceptions.PersonAlreadyExists;
 import person.Person;
 
 import javax.swing.*;
@@ -27,14 +28,18 @@ public class AddPersonTodatabase extends JFrame{
         addPersonButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addPersonToDB();
+                try {
+                    addPersonToDB();
+                } catch (PersonAlreadyExists ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
         setVisible(true);
     }
 
-    private void addPersonToDB() {
+    private void addPersonToDB() throws PersonAlreadyExists {
         String enteredName = enterNameTextField.getText();
         if (!enteredName.isEmpty()) {
             Person newPerson = new Person(enteredName);

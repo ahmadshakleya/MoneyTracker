@@ -8,7 +8,7 @@ public class ShowPossibilities extends JFrame {
     private JButton addNewPersonToButton;
     private JButton showsPersonsInDatabaseButton;
     private JButton addNewTicketButton;
-    private JPanel PossibilitiesPanel;
+    private javax.swing.JPanel PossibilitiesPanel;
 
     private boolean showPersons = false;
 

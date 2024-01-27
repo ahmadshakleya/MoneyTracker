@@ -201,4 +201,11 @@ public class MoneyTrackerController {
     }
 
 
+    public PersonDB getPersonDB() {
+        return personDB;
+    }
+
+    public TicketsDB getTicketsDB() {
+        return ticketsDB;
+    }
 }

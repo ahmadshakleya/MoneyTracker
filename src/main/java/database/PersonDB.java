@@ -1,5 +1,6 @@
 package database;
 
+import exceptions.PersonAlreadyExists;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import person.Person;
@@ -31,11 +32,15 @@ public class PersonDB
         return instance;
     }
 
-    public void addEntry(Person person)
-    {
+    public void addEntry(Person person) throws PersonAlreadyExists {
+        if (db.containsKey(person.getName())) {
+            throw new PersonAlreadyExists("Person already exists in the database: " + person.getName());
+        }
         db.put(person.getName(), person);
-        ArrayList<String> newValue = new ArrayList<>();
-        newValue.add(person.getName());
+        //ArrayList<String> newValue = new ArrayList<>();
+        //newValue.add(person.getName());
+        ArrayList<Person> newValue = new ArrayList<>();
+        newValue.add(person);
         support.firePropertyChange("people who are effected: ", null, newValue); // Persoon
     }
 

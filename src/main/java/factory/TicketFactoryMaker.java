@@ -15,4 +15,8 @@ public class TicketFactoryMaker {
     public TicketFactoryUnevenSplit makeUnevenTicketFactory() {
         return new TicketFactoryUnevenSplit(controller);
     }
+
+    public MoneyTrackerController getController() {
+        return controller;
+    }
 }
