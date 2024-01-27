@@ -1,17 +1,32 @@
 package tickets;
 
+import org.json.simple.JSONObject;
 import person.Person;
 
-import java.util.AbstractMap;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 public interface ITicket {
 
     Date getDate();
+
+    void setDate(Date date);
+
     String getDescription();
+
+    void setDescription(String description);
+
     double getTotal();
-    List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson();
+
+    void setTotal(double total);
+
+    HashMap<Person, Double> getTotalPerPerson();
+
+    void setTotalPerPerson(HashMap<Person, Double> terugbetaling);
+
     boolean getIsPaid();
+
     void setIsPaid(boolean isPaid);
+
+    JSONObject toJson();
 }

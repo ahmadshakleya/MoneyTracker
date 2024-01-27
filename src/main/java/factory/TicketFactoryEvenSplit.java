@@ -1,22 +1,30 @@
 package factory;
 
+import controller.MoneyTrackerController;
+import exceptions.ticketException;
 import tag.Tag;
 import person.Person;
 import tickets.ITicket;
 import tickets.decorators.TaggedTicket;
 import tickets.TicketEvenSplit;
 
-import java.util.List;
 import java.util.Set;
 
 public class TicketFactoryEvenSplit {
 
-    public TicketFactoryEvenSplit(){
+    private final MoneyTrackerController controller;
 
+    public TicketFactoryEvenSplit(MoneyTrackerController controller){
+        this.controller = controller;
     }
 
-    public ITicket makeEvenTicket(double totaal, Set<Person> people, List<Tag> tags, String description){
+    public void makeEvenTicket(Person whoHasPaid, double totaal, Set<Person> people, Tag tag, String description) throws Exception{
+        if (tag.equals(Tag.TERUGBETALING)){
+            throw new ticketException("Gebruik uneven tickets. Anders ga je ook van 'whoHasPaid' aftrekken");
+        }
+
         ITicket ticket = new TicketEvenSplit(totaal, people, description);
-        return new TaggedTicket(ticket, tags);
+        ITicket taggedTicket = new TaggedTicket(ticket, tag);
+        controller.addTicket(whoHasPaid, taggedTicket);
     }
 }

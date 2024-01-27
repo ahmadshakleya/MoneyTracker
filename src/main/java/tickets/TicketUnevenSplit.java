@@ -1,34 +1,28 @@
 package tickets;
 
+import org.json.simple.JSONObject;
 import person.Person;
 
 import java.util.AbstractMap;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class TicketUnevenSplit extends AbstractTicket {
 
-    /**
-     * Lijst van terugbetalingen per persoon.
-     * SimpleEntry.getKey() voor de naam te krijgen
-     * SimpleEntry.getValue() voor de waarde te krijgen
-     */
-    private final List<AbstractMap.SimpleEntry<Person, Double>> terugbetaling;
-
-    public TicketUnevenSplit(List<AbstractMap.SimpleEntry<Person, Double>> terugbetalingen, String description) {
+    public TicketUnevenSplit(HashMap<Person, Double> terugbetalingen, double payerPersonalContribution, String description) {
         this.terugbetaling = terugbetalingen;
         this.description = description;
-
         Calendar calendar = Calendar.getInstance();
         this.date = calendar.getTime();
-
-        this.total = terugbetaling.stream().mapToDouble(AbstractMap.SimpleEntry::getValue).sum();
+        this.total = terugbetalingen.values().stream().mapToDouble(Double::doubleValue).sum() + payerPersonalContribution;
 
     }
 
-
     @Override
-    public List<AbstractMap.SimpleEntry<Person, Double>> getTotalPerPerson() {
-        return terugbetaling;
+    public JSONObject toJson() {
+        JSONObject jsonObject = super.toJson();
+        jsonObject.put("type:", "uneven");
+        return jsonObject;
     }
 }

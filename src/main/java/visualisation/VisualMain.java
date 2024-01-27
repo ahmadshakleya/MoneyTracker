@@ -32,9 +32,9 @@ public class VisualMain {
             Thread.sleep(3000);
         }
 
-        for (Person person: db.showPeople().values()){
+
+        for (Person person: db.getAllPeople()){
             System.out.println(person.getName());
         }
-
     }
 }

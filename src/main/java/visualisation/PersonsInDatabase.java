@@ -63,9 +63,14 @@ public class PersonsInDatabase extends JFrame{
         personListModel.clear(); // Clear the list model first
 
         // Get persons from the database and add their names to the list model
-        for (Person personName : db.showPeople().values()) {
+
+
+
+
+        for (Person personName : db.getAllPeople()) {
             personListModel.addElement(personName.getName());
         }
+
     }
 
 

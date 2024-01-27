@@ -1,12 +1,18 @@
 package factory;
 
+import controller.MoneyTrackerController;
+
 public class TicketFactoryMaker {
 
-    public static TicketFactoryEvenSplit makeEvenTicketFactory() {
-        return new TicketFactoryEvenSplit();
+    private final MoneyTrackerController controller;
+
+    public TicketFactoryMaker(MoneyTrackerController controller){
+        this.controller = controller;
     }
 
-    public static TicketFactoryUnevenSplit makeUnevenTicketFactory() {
-        return new TicketFactoryUnevenSplit();
+    public TicketFactoryEvenSplit makeEvenTicketFactory() {return new TicketFactoryEvenSplit(controller);}
+
+    public TicketFactoryUnevenSplit makeUnevenTicketFactory() {
+        return new TicketFactoryUnevenSplit(controller);
     }
 }

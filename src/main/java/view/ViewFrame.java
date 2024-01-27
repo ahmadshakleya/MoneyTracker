@@ -1,23 +1,21 @@
 package view;
 
-import TicketsDBController.TicketsDBController;
-import register_entry.RegisterEntry;
+import controller.MoneyTrackerController;
 import tickets.ITicket;
-import view.panels.ListPanel;
+//import view.panels.ListPanel;
 import view.panels.RegistrationButtonPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class ViewFrame extends JFrame implements PropertyChangeListener {
-    private TicketsDBController t_controller;
-    private ListPanel panel;
+    private MoneyTrackerController t_controller;
+  //  private ListPanel panel;
     private RegistrationButtonPanel buttons;
 
-    public ViewFrame(TicketsDBController registrationController) {
+    public ViewFrame(MoneyTrackerController registrationController) {
         super("Registration");
         this.t_controller = registrationController;
     }
@@ -43,9 +41,9 @@ public class ViewFrame extends JFrame implements PropertyChangeListener {
 
         // Pass the controller to the ButtonPanel
         buttons = new RegistrationButtonPanel(t_controller);
-        panel = new ListPanel();
+     //   panel = new ListPanel();
 
-        contentPanel.add(panel, BorderLayout.CENTER);
+       // contentPanel.add(panel, BorderLayout.CENTER);
         contentPanel.add(buttons, BorderLayout.SOUTH);
 
         this.add(contentPanel, BorderLayout.CENTER);
