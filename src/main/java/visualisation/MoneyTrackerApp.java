@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,6 +58,21 @@ public class MoneyTrackerApp extends JFrame {
                 ticketManagementPanel.updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
             }
         });
+
+        // Add window listener to handle window closing event
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Call a method to perform any necessary cleanup before closing the application
+                performCleanupAndExit();
+            }
+        });
+    }
+    private void performCleanupAndExit() {
+        // Perform any cleanup operations here...
+
+        // Exit the application
+        System.exit(0);
     }
 
     private void initComponents() {
@@ -70,7 +87,7 @@ public class MoneyTrackerApp extends JFrame {
         personTicketsPanel = new PersonTicketsPanel(moneyTrackerController); // Pass controller to panel
         tabbedPane.addTab("Person Tickets", personTicketsPanel);
 
-        addPersonToDatabasePanel = new AddPersonToDatabasePanel();
+        addPersonToDatabasePanel = new AddPersonToDatabasePanel(moneyTrackerController);
         tabbedPane.addTab("Add Person to Database", addPersonToDatabasePanel);
 
         // Add a new tab for ticket management
@@ -197,16 +214,16 @@ class AddPersonToDatabasePanel extends JPanel {
     private JButton addPersonButton;
     private JTextField enterNameTextField;
 
-    private PersonDB db;
+    private MoneyTrackerController moneyTrackerController;
 
-    public AddPersonToDatabasePanel() {
+    public AddPersonToDatabasePanel(MoneyTrackerController moneyTrackerController) {
+        this.moneyTrackerController = moneyTrackerController;
         initComponents();
     }
 
     private void initComponents() {
         setLayout(new BorderLayout());
 
-        db = PersonDB.getInstance();
         enterNameTextField = new JTextField(20);
         add(new JLabel("Enter Name:"), BorderLayout.WEST);
         add(enterNameTextField, BorderLayout.CENTER);
@@ -217,6 +234,8 @@ class AddPersonToDatabasePanel extends JPanel {
                 addPersonToDB();
             } catch (PersonAlreadyExists ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "An error occurred while adding the person to the database.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         add(addPersonButton, BorderLayout.SOUTH);
@@ -225,19 +244,22 @@ class AddPersonToDatabasePanel extends JPanel {
     private void addPersonToDB() throws PersonAlreadyExists {
         String enteredName = enterNameTextField.getText();
         if (!enteredName.isEmpty()) {
-            Person newPerson = new Person(enteredName);
             try {
-                db.addEntry(newPerson);
+                // Call the makePerson method of MoneyTrackerController to add the person
+                moneyTrackerController.makePerson(enteredName);
                 JOptionPane.showMessageDialog(this, "Person added to database: " + enteredName);
                 enterNameTextField.setText("");
             } catch (PersonAlreadyExists ex) {
                 throw ex; // Re-throw the exception
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please enter a name.");
         }
     }
 }
+
 class TicketManagementPanel extends JPanel {
     private TicketFactoryMaker ticketFactoryMaker;
     private DefaultListModel<ITicket> ticketListModel;
