@@ -356,8 +356,10 @@ class TicketManagementPanel extends JPanel {
                 // Create the TicketFactoryEvenSplit instance
                 TicketFactoryEvenSplit evenSplitFactory = ticketFactoryMaker.makeEvenTicketFactory();
 
+                HashSet<Person> personHashSet = new HashSet<>(peopleList.stream().filter(person -> person != whoHasPaid).toList());
+
                 // Use the evenSplitFactory to create an even ticket
-                evenSplitFactory.makeEvenTicket(whoHasPaid, total, new HashSet<>(peopleList), tag, description);
+                evenSplitFactory.makeEvenTicket(whoHasPaid, total, personHashSet, tag, description);
 
                 // Handle successful creation of the even ticket
                 JOptionPane.showMessageDialog(this, "Even ticket created successfully.");
