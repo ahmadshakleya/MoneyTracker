@@ -528,7 +528,7 @@ class PersonDebtsPanel extends JPanel {
                     Double amountOwed = debtEntry.getValue();
                     if (amountOwed > 0) {
                         amountOfCreditors++;
-                        debtString.append(creditor.getName()).append(" - ").append(amountOwed).append(", ");
+                        debtString.append(creditor.getName()).append(" : ").append(amountOwed).append(", ");
                     }
                 }
             }
