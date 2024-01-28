@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TicketEvenSplit extends AbstractTicket {
 
 
-    public TicketEvenSplit(double total, Set<Person> people, String description) {
+    public TicketEvenSplit(Person whoHasPaid, double total, Set<Person> people, String description) {
         this.total = total;
         //double terugbetalingPerPersoon = total / (people.size() + 1);
         double terugbetalingPerPersoon = total / people.size();
@@ -20,6 +20,7 @@ public class TicketEvenSplit extends AbstractTicket {
         this.description = description;
         Calendar calendar = Calendar.getInstance();
         this.date = calendar.getTime();
+        this.person = whoHasPaid;
     }
 
     @Override

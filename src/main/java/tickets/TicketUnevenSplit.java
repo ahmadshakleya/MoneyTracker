@@ -10,13 +10,13 @@ import java.util.List;
 
 public class TicketUnevenSplit extends AbstractTicket {
 
-    public TicketUnevenSplit(HashMap<Person, Double> terugbetalingen, double payerPersonalContribution, String description) {
+    public TicketUnevenSplit(Person whoHasPaid, HashMap<Person, Double> terugbetalingen, double payerPersonalContribution, String description) {
         this.terugbetaling = terugbetalingen;
         this.description = description;
         Calendar calendar = Calendar.getInstance();
         this.date = calendar.getTime();
         this.total = terugbetalingen.values().stream().mapToDouble(Double::doubleValue).sum() + payerPersonalContribution;
-
+        this.person = whoHasPaid;
     }
 
     @Override

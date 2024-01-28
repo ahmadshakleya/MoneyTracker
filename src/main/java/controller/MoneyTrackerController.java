@@ -170,7 +170,7 @@ public class MoneyTrackerController {
                             ticketMap.put(personDB.getEntry(name), (double) terugbtalingen.get(nameObj));
                         }
 
-                        TicketUnevenSplit ticketUnevenSplit = new TicketUnevenSplit(ticketMap, 0.0, (String) ticketData.get("description"));
+                        TicketUnevenSplit ticketUnevenSplit = new TicketUnevenSplit(person,ticketMap, 0.0, (String) ticketData.get("description"));
                         ticket = ticketUnevenSplit;
                     } else {
                         HashSet<Person> ticketMap = new HashSet<>();
@@ -180,7 +180,7 @@ public class MoneyTrackerController {
                             ticketMap.add(personDB.getEntry(name));
                         }
 
-                        TicketEvenSplit ticketEvenSplit = new TicketEvenSplit((double) ticketData.get("total"), ticketMap,  (String) ticketData.get("description"));
+                        TicketEvenSplit ticketEvenSplit = new TicketEvenSplit(person, (double) ticketData.get("total"), ticketMap,  (String) ticketData.get("description"));
                         ticket = ticketEvenSplit;
                     }
 

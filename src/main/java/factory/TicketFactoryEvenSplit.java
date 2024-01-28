@@ -23,7 +23,7 @@ public class TicketFactoryEvenSplit {
             throw new ticketException("Gebruik uneven tickets. Anders ga je ook van 'whoHasPaid' aftrekken");
         }
 
-        ITicket ticket = new TicketEvenSplit(totaal, people, description);
+        ITicket ticket = new TicketEvenSplit(whoHasPaid, totaal, people, description);
         ITicket taggedTicket = new TaggedTicket(ticket, tag);
         controller.addTicket(whoHasPaid, taggedTicket);
     }

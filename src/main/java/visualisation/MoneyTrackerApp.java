@@ -22,9 +22,11 @@ import tickets.ITicket;
 
 public class MoneyTrackerApp extends JFrame {
     private JTabbedPane tabbedPane;
-    private JPanel personsInDatabasePanel;
+    private PersonsInDatabasePanel personsInDatabasePanel;
     private JPanel addPersonToDatabasePanel;
-    private JPanel ticketManagementPanel;
+    private TicketManagementPanel ticketManagementPanel;
+
+    private PersonDebtsPanel personDebtsPanel;
 
     private MoneyTrackerController moneyTrackerController; // Instantiate MoneyTrackerController
     private TicketFactoryMaker ticketFactoryMaker; // Instantiate TicketFactoryMaker
@@ -68,6 +70,39 @@ public class MoneyTrackerApp extends JFrame {
                 performCleanupAndExit();
             }
         });
+
+        // Add a new tab for data management
+        JPanel dataManagementPanel = new JPanel();
+        dataManagementPanel.setLayout(new FlowLayout());
+
+        // Create buttons for saving and loading data
+        JButton saveButton = new JButton("Save Data");
+        JButton loadButton = new JButton("Load Data");
+
+        // Add action listeners to the buttons
+        saveButton.addActionListener(e -> saveData());
+        loadButton.addActionListener(e -> loadData());
+
+        // Add buttons to the panel
+        dataManagementPanel.add(saveButton);
+        dataManagementPanel.add(loadButton);
+
+        // Add the panel to the tabbed pane
+        tabbedPane.addTab("Data Management", dataManagementPanel);
+    }
+
+    private void saveData() {
+        moneyTrackerController.saveData();
+        JOptionPane.showMessageDialog(this, "Data saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void loadData() {
+        moneyTrackerController.loadData();
+        JOptionPane.showMessageDialog(this, "Data loaded successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        // Update the person list in the personsInDatabasePanel
+        personsInDatabasePanel.updatePersonList();
+        ticketManagementPanel.updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+        personDebtsPanel.updatePersonDebtsList();
     }
 
     // Method to find the index of a tab by its title
@@ -100,7 +135,7 @@ public class MoneyTrackerApp extends JFrame {
         tabbedPane.addTab("Ticket Management", ticketManagementPanel);
 
         // Add the new tab for person debts
-        PersonDebtsPanel personDebtsPanel = new PersonDebtsPanel(moneyTrackerController);
+        personDebtsPanel = new PersonDebtsPanel(moneyTrackerController);
         tabbedPane.addTab("Person Debts", personDebtsPanel);
     }
 
@@ -139,7 +174,7 @@ class PersonsInDatabasePanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    private void updatePersonList() {
+    public void updatePersonList() {
         personListModel.clear();
         for (Person person : db.getAllPeople()) {
             personListModel.addElement(person.getName());
@@ -341,7 +376,6 @@ class TicketManagementPanel extends JPanel {
             }
         });
 
-
         JButton createUnevenTicketButton = new JButton("Create Uneven Ticket");
         createUnevenTicketButton.addActionListener(e -> {
             try {
@@ -351,8 +385,26 @@ class TicketManagementPanel extends JPanel {
                 // Create an array of person names for display in the dialog
                 String[] personNames = peopleList.stream().map(Person::getName).toArray(String[]::new);
 
-                // Show a dialog to select the tag
+                // Show a dialog to select the person who has paid
+                String selectedPersonName = (String) JOptionPane.showInputDialog(
+                        this,
+                        "Select the person who has paid:",
+                        "Select Person",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        personNames,
+                        personNames[0]);
+
+                // Find the selected person object based on the selected name
+                Person whoHasPaid = peopleList.stream()
+                        .filter(person -> person.getName().equals(selectedPersonName))
+                        .findFirst()
+                        .orElseThrow(() -> new Exception("Selected person not found in the database"));
+
+                // Create an array of tag names for display in the dialog
                 String[] tagNames = Arrays.stream(Tag.values()).map(Enum::name).toArray(String[]::new);
+
+                // Show a dialog to select the tag
                 String selectedTagName = (String) JOptionPane.showInputDialog(
                         this,
                         "Select the tag:",
@@ -361,7 +413,6 @@ class TicketManagementPanel extends JPanel {
                         null,
                         tagNames,
                         tagNames[0]);
-
 
                 // Convert the selected tag name to the Tag enum
                 Tag tag = Tag.valueOf(selectedTagName);
@@ -383,19 +434,21 @@ class TicketManagementPanel extends JPanel {
 
                 // Loop through each person to input their repayment amount
                 for (Person person : peopleList) {
-                    String repaymentInput = JOptionPane.showInputDialog(this, "Enter the repayment amount for " + person.getName() + ":");
-                    double repaymentAmount = Double.parseDouble(repaymentInput);
-                    if (repaymentAmount < 0) {
-                        throw new IllegalArgumentException("Repayment amount for " + person.getName() + " cannot be negative.");
+                    if (person != whoHasPaid) {
+                        String repaymentInput = JOptionPane.showInputDialog(this, "Enter the repayment amount for " + person.getName() + ":");
+                        double repaymentAmount = Double.parseDouble(repaymentInput);
+                        if (repaymentAmount < 0) {
+                            throw new IllegalArgumentException("Repayment amount for " + person.getName() + " cannot be negative.");
+                        }
+                        repaymentMap.put(person, repaymentAmount);
                     }
-                    repaymentMap.put(person, repaymentAmount);
                 }
 
                 // Create the TicketFactoryUnevenSplit instance
                 TicketFactoryUnevenSplit unevenSplitFactory = ticketFactoryMaker.makeUnevenTicketFactory();
 
                 // Use the unevenSplitFactory to create an uneven ticket
-                unevenSplitFactory.makeUnevenTicket(peopleList.get(0), payerPersonalContribution, repaymentMap, tag, description);
+                unevenSplitFactory.makeUnevenTicket(whoHasPaid, payerPersonalContribution, repaymentMap, tag, description);
 
                 // Handle successful creation of the uneven ticket
                 JOptionPane.showMessageDialog(this, "Uneven ticket created successfully.");
@@ -411,8 +464,6 @@ class TicketManagementPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "An error occurred while creating the uneven ticket.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
-
 
         buttonPanel.add(createEvenTicketButton);
         buttonPanel.add(createUnevenTicketButton);
@@ -458,22 +509,30 @@ class PersonDebtsPanel extends JPanel {
         updatePersonDebtsList();
     }
 
-    private void updatePersonDebtsList() {
+    public void updatePersonDebtsList() {
         personDebtsListModel.clear();
         // Get the global bill
         HashMap<Person, HashMap<Person, Double>> globalBill = moneyTrackerController.getGlobalBill();
         // Iterate over each person and their debts
         for (Map.Entry<Person, HashMap<Person, Double>> entry : globalBill.entrySet()) {
+            int amountOfCreditors = 0; // To remove
             Person person = entry.getKey();
             HashMap<Person, Double> debts = entry.getValue();
-            StringBuilder debtString = new StringBuilder(person.getName() + " owes: ");
+            StringBuilder debtString = new StringBuilder(person.getName() + " has to receive from: ");
             // Append each creditor and the amount owed
             for (Map.Entry<Person, Double> debtEntry : debts.entrySet()) {
                 Person creditor = debtEntry.getKey();
-                Double amountOwed = debtEntry.getValue();
-                debtString.append(creditor.getName()).append(" - ").append(amountOwed).append(", ");
+                if (person != creditor) {
+                    Double amountOwed = debtEntry.getValue();
+                    if (amountOwed > 0) {
+                        amountOfCreditors++;
+                        debtString.append(creditor.getName()).append(" - ").append(amountOwed).append(", ");
+                    }
+                }
             }
-            personDebtsListModel.addElement(debtString.toString());
+            if (amountOfCreditors > 0) {
+                personDebtsListModel.addElement(debtString.toString());
+            }
         }
     }
 }

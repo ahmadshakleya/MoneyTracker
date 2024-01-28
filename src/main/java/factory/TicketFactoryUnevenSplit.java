@@ -27,7 +27,7 @@ public class TicketFactoryUnevenSplit {
             throw new NegativeNumberException("kan niet negatief betalen");
         }
 
-        ITicket ticket = new TicketUnevenSplit(terugbetalingen, payerPersonalContribution, description);
+        ITicket ticket = new TicketUnevenSplit(whoHasPaid, terugbetalingen, payerPersonalContribution, description);
         ITicket taggedTicket = new TaggedTicket(ticket, tag);
         controller.addTicket(whoHasPaid, taggedTicket);
     }

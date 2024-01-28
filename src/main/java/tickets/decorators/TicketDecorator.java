@@ -43,6 +43,16 @@ public abstract class TicketDecorator implements ITicket {
     }
 
     @Override
+    public Person getPerson() {
+        return decoratedTicket.getPerson();
+    }
+
+    @Override
+    public void setPerson(Person person) {
+        decoratedTicket.setPerson(person);
+    }
+
+    @Override
     public JSONObject toJson() {
         return decoratedTicket.toJson();
     }

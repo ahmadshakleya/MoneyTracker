@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractTicket implements ITicket {
 
+    protected Person person;
     protected Date date;
     protected double total;
     protected String description;
@@ -78,6 +79,16 @@ public abstract class AbstractTicket implements ITicket {
         this.isPaid = isPaid;
     }
 
+    @Override
+    public Person getPerson() {
+        return person;
+    }
+
+    @Override
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public JSONObject toJson(){
         JSONObject ticketJson = new JSONObject();
         ticketJson.put("date", date.toString());
@@ -96,6 +107,7 @@ public abstract class AbstractTicket implements ITicket {
     public String toOwnString(){
         String text= new String();
 
+        text += "Payer: " + person.getName() + "\n";
         text += "Date: " + date.toString() + "\n";
         text += "Total: " + total + "\n";
         text += "Description: " + description + "\n";

@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public interface ITicket {
 
+    Person getPerson();
+    void setPerson(Person person);
     Date getDate();
 
     void setDate(Date date);
