@@ -39,9 +39,10 @@ public class TicketsDB {
         ArrayList<ITicket> ticketsForPerson = db.computeIfAbsent(person, k -> new ArrayList<>());
         ticketsForPerson.add(ticket);
 
-        //Set<Person> peopleWhoAreEffected = ticket.getTotalPerPerson().stream().map(AbstractMap.SimpleEntry::getKey).collect(Collectors.toSet());
-        //peopleWhoAreEffected.add(person);
-        support.firePropertyChange("Entry: ", person, ticket);
+        ArrayList<Object> newValue = new ArrayList<>();
+        newValue.add(person);
+        newValue.add(ticket);
+        support.firePropertyChange("ticketAdded", null, newValue);
     }
 
     public void loadEntry(Person person, ITicket ticket){
