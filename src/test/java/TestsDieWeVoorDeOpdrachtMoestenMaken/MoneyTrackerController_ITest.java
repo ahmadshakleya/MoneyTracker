@@ -1,6 +1,8 @@
 package TestsDieWeVoorDeOpdrachtMoestenMaken;
 
 import controller.MoneyTrackerController;
+import database.PersonDB;
+import database.TicketsDB;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
 import factory.TicketFactoryUnevenSplit;
@@ -11,6 +13,8 @@ import org.junit.Test;
 import person.Person;
 import tag.Tag;
 
+import java.beans.PropertyChangeSupport;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +37,8 @@ public class MoneyTrackerController_ITest {
     public void initialize() throws Exception {
         controller = new MoneyTrackerController();
         controller.resetDB();
+        resetSingleton(TicketsDB.class, "instance");
+        resetSingleton(PersonDB.class, "instance");
         PersonUpdaters personUpdaters = new PersonUpdaters();
         controller.addTicketsDBObserver(personUpdaters);
 
@@ -139,4 +145,18 @@ public class MoneyTrackerController_ITest {
         test_getExpensesPaid();
         test_getGlobalBill();
     }
+
+    public static void resetSingleton(Class<?> clazz, String fieldName) {
+        Field instance;
+        try {
+            instance = clazz.getDeclaredField(fieldName);
+            instance.setAccessible(true);
+            instance.set(null, null);
+            instance.setAccessible(false);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not reset singleton: " + e.getMessage());
+        }
+    }
+
 }
+
