@@ -16,18 +16,15 @@ import java.util.stream.Collectors;
 
 
 public class TicketsDB {
-    // Static variable to hold the single instance
     private static TicketsDB instance;
     private HashMap<Person, ArrayList<ITicket>> db;
     protected PropertyChangeSupport support;
 
-    // Private constructor to prevent instantiation
     private TicketsDB() {
         support = new PropertyChangeSupport(this);
         this.db = new HashMap<>();
     }
 
-    // Static method to get the instance
     public static TicketsDB getInstance() {
         if (instance == null) {
             instance = new TicketsDB();
@@ -39,9 +36,10 @@ public class TicketsDB {
         ArrayList<ITicket> ticketsForPerson = db.computeIfAbsent(person, k -> new ArrayList<>());
         ticketsForPerson.add(ticket);
 
-        //Set<Person> peopleWhoAreEffected = ticket.getTotalPerPerson().stream().map(AbstractMap.SimpleEntry::getKey).collect(Collectors.toSet());
-        //peopleWhoAreEffected.add(person);
-        support.firePropertyChange("Entry: ", person, ticket);
+        ArrayList<Object> newValue = new ArrayList<>();
+        newValue.add(person);
+        newValue.add(ticket);
+        support.firePropertyChange("ticketAdded", null, newValue);
     }
 
     public void loadEntry(Person person, ITicket ticket){
@@ -58,16 +56,12 @@ public class TicketsDB {
     }
 
     public void removeTicket(ITicket ticket) {
-        // Iterate through each person and remove the ticket if it exists
         for (ArrayList<ITicket> tickets : db.values()) {
             if (tickets.remove(ticket)) {
-                // Notify observers about the removal of the ticket
                 support.firePropertyChange("TicketRemoved", null, ticket);
-                return; // Exit the method once the ticket is removed
+                return;
             }
         }
-        // If the ticket wasn't found, you may throw an exception or handle it based on your application logic
-        // For simplicity, let's throw an IllegalArgumentException
         throw new IllegalArgumentException("Ticket not found in the database.");
     }
 

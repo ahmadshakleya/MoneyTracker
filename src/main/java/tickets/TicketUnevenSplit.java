@@ -20,6 +20,14 @@ public class TicketUnevenSplit extends AbstractTicket {
     }
 
     @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = super.toJson();
+        jsonObject.put("type:", "uneven");
+        return jsonObject;
+    }
+
+
+    @Override
     public String toOwnString() {
         String text = super.toOwnString();
         text += "type: " + "uneven\n";

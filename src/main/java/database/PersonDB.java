@@ -13,18 +13,15 @@ public class PersonDB
 {
     private HashMap<String, Person> db;
 
-    // Static variable to hold the single instance
     private static PersonDB instance;
     protected PropertyChangeSupport support;
 
-    // Private constructor to prevent instantiation
     private PersonDB()
     {
         support = new PropertyChangeSupport(this);
         this.db = new HashMap<>();
     }
 
-    // Static method to get the instance
     public static PersonDB getInstance() {
         if (instance == null){
             instance = new PersonDB();
@@ -37,8 +34,6 @@ public class PersonDB
             throw new PersonAlreadyExists("Person already exists in the database: " + person.getName());
         }
         db.put(person.getName(), person);
-        //ArrayList<String> newValue = new ArrayList<>();
-        //newValue.add(person.getName());
         ArrayList<Person> newValue = new ArrayList<>();
         newValue.add(person);
         support.firePropertyChange("people who are effected: ", null, newValue); // Persoon

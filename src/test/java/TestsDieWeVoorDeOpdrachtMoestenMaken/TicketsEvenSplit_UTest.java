@@ -1,4 +1,4 @@
-package oudePrulDatWaarschijnlijkVerwijderdMagWorden.tickets;
+package TestsDieWeVoorDeOpdrachtMoestenMaken;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +15,7 @@ import tickets.TicketEvenSplit;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.spy;
 
 // Run with PowerMock, an extended version of Mockito
@@ -48,7 +49,7 @@ public class TicketsEvenSplit_UTest {
         mock_People.add(mock_Person2);
         mock_People.add(mock_Person3);
 
-        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(100.0, mock_People, "");
+        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(mock_Person1, 100.0, mock_People, "");
 
         double expectedTotal = 100;
 
