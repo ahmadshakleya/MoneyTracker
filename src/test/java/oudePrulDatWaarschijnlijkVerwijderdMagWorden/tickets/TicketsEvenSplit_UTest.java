@@ -48,7 +48,7 @@ public class TicketsEvenSplit_UTest {
         mock_People.add(mock_Person2);
         mock_People.add(mock_Person3);
 
-        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(100.0, mock_People, "");
+        TicketEvenSplit ticketUnderTest = new TicketEvenSplit(mock_Person1, 100.0, mock_People, "");
 
         double expectedTotal = 100;
 
