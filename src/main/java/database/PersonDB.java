@@ -44,6 +44,15 @@ public class PersonDB
         support.firePropertyChange("people who are effected: ", null, newValue); // Persoon
     }
 
+    public void removePerson(String name) {
+        Person removedPerson = db.remove(name);
+        if (removedPerson != null) {
+            ArrayList<Person> removedPersonList = new ArrayList<>();
+            removedPersonList.add(removedPerson);
+            support.firePropertyChange("personRemoved", null, removedPersonList);
+        }
+    }
+
     public Person getEntry(String name)
     {
         return this.db.get(name);

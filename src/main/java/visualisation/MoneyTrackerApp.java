@@ -91,6 +91,11 @@ public class MoneyTrackerApp extends JFrame {
         tabbedPane.addTab("Data Management", dataManagementPanel);
     }
 
+    public void removeTicket(ITicket ticket) {
+        moneyTrackerController.getTicketsDB().removeTicket(ticket);
+    }
+
+
     private void saveData() {
         moneyTrackerController.saveData();
         JOptionPane.showMessageDialog(this, "Data saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -131,7 +136,7 @@ public class MoneyTrackerApp extends JFrame {
         tabbedPane.addTab("Persons in Database", personsInDatabasePanel);
 
         // Add a new tab for ticket management
-        ticketManagementPanel = new TicketManagementPanel(ticketFactoryMaker);
+        ticketManagementPanel = new TicketManagementPanel(moneyTrackerController, ticketFactoryMaker);
         tabbedPane.addTab("Ticket Management", ticketManagementPanel);
 
         // Add the new tab for person debts
@@ -172,6 +177,11 @@ class PersonsInDatabasePanel extends JPanel {
         updatePersonList();
         JScrollPane scrollPane = new JScrollPane(personList);
         add(scrollPane, BorderLayout.CENTER);
+
+        // Add a button for removing a selected person
+        JButton removePersonButton = new JButton("Remove Person");
+        removePersonButton.addActionListener(e -> removeSelectedPerson());
+        add(removePersonButton, BorderLayout.SOUTH);
     }
 
     public void updatePersonList() {
@@ -180,7 +190,23 @@ class PersonsInDatabasePanel extends JPanel {
             personListModel.addElement(person.getName());
         }
     }
+
+    private void removeSelectedPerson() {
+        String selectedPersonName = personList.getSelectedValue();
+        if (selectedPersonName != null) {
+            int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " + selectedPersonName + "?", "Confirm Removal", JOptionPane.YES_NO_OPTION);
+            if (confirmation == JOptionPane.YES_OPTION) {
+                // Remove the selected person from the database
+                db.removePerson(selectedPersonName);
+                // Update the UI
+                updatePersonList();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a person to remove.", "No Person Selected", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }
+
 
 class AddPersonToDatabasePanel extends JPanel {
     private JButton addPersonButton;
@@ -263,8 +289,9 @@ class TicketManagementPanel extends JPanel {
     private JTextArea ticketDetailsTextArea;
     private MoneyTrackerController moneyTrackerController;
 
-    public TicketManagementPanel(TicketFactoryMaker ticketFactoryMaker) {
+    public TicketManagementPanel(MoneyTrackerController moneyTrackerController, TicketFactoryMaker ticketFactoryMaker) {
         this.ticketFactoryMaker = ticketFactoryMaker;
+        this.moneyTrackerController = moneyTrackerController;
         initComponents();
     }
 
@@ -471,6 +498,11 @@ class TicketManagementPanel extends JPanel {
 
         // Load tickets from ticketsDB when the panel is created
         updateTicketList(ticketFactoryMaker.getController().getTicketsDB().getAllTickets());
+
+        JButton removeTicketButton = new JButton("Remove Ticket");
+        removeTicketButton.addActionListener(e -> removeSelectedTicket());
+        buttonPanel.add(removeTicketButton);
+
     }
     // Method to update ticket list in the UI
     public void updateTicketList(ArrayList<ITicket> tickets) {
@@ -479,6 +511,23 @@ class TicketManagementPanel extends JPanel {
             ticketListModel.addElement(ticket);
         }
     }
+    private void removeSelectedTicket() {
+        ITicket selectedTicket = ticketList.getSelectedValue();
+        if (selectedTicket != null) {
+            int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this ticket?", "Confirm Removal", JOptionPane.YES_NO_OPTION);
+            if (confirmation == JOptionPane.YES_OPTION) {
+                // Remove the selected ticket from the database
+                moneyTrackerController.getTicketsDB().removeTicket(selectedTicket);
+                // Update the UI
+                updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+                // Clear ticket details
+                ticketDetailsTextArea.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a ticket to remove.", "No Ticket Selected", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
 
 }
 
