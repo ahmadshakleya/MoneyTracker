@@ -36,7 +36,6 @@ public class MoneyTrackerController_ITest {
     @Before
     public void initialize() throws Exception {
         controller = new MoneyTrackerController();
-        controller.resetDB();
         resetSingleton(TicketsDB.class, "instance");
         resetSingleton(PersonDB.class, "instance");
         PersonUpdaters personUpdaters = new PersonUpdaters();
