@@ -92,4 +92,18 @@ public abstract class AbstractTicket implements ITicket {
         ticketJson.put("repayments", repaymentsJson);
         return ticketJson;
     }
+
+    public String toOwnString(){
+        String text= new String();
+
+        text += "Date: " + date.toString() + "\n";
+        text += "Total: " + total + "\n";
+        text += "Description: " + description + "\n";
+        text += "IsPaid: " + isPaid + "\n";
+        for (Person key : terugbetaling.keySet()){
+            text += key.getName() + ": " + terugbetaling.get(key) + "\n";
+        }
+        return text;
+
+    }
 }

@@ -73,4 +73,8 @@ public class PersonDB
     public ArrayList<Person> getAllPeople(){
         return new ArrayList<>(db.values());
     }
+
+    public PropertyChangeSupport getSupport() {
+        return support;
+    }
 }

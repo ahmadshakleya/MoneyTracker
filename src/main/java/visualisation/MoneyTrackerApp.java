@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,10 +28,8 @@ import tickets.ITicket;
 
 public class MoneyTrackerApp extends JFrame {
     private JTabbedPane tabbedPane;
-    private JPanel showPossibilitiesPanel;
     private JPanel personsInDatabasePanel;
     private JPanel addPersonToDatabasePanel;
-    private JPanel personTicketsPanel; // New panel for displaying person's tickets
     private JPanel ticketManagementPanel;
 
     private MoneyTrackerController moneyTrackerController; // Instantiate MoneyTrackerController
@@ -53,11 +53,18 @@ public class MoneyTrackerApp extends JFrame {
         moneyTrackerController.addTicketsDBObserver(evt -> {
             // Check if the property change is related to adding a new ticket
             if ("ticketAdded".equals(evt.getPropertyName())) {
-                // A new ticket was added, update the ticket list
-                TicketManagementPanel ticketManagementPanel = (TicketManagementPanel) tabbedPane.getComponentAt(4); // Assuming the ticket management panel is at index 4
-                ticketManagementPanel.updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+                // Find the index of the "Ticket Management" tab
+                int index = findTabIndex("Ticket Management");
+                if (index != -1) {
+                    // Get the TicketManagementPanel and update the ticket list
+                    TicketManagementPanel ticketManagementPanel = (TicketManagementPanel) tabbedPane.getComponentAt(index);
+                    ticketManagementPanel.updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+                } else {
+                    System.err.println("Ticket Management tab not found.");
+                }
             }
         });
+
 
         // Add window listener to handle window closing event
         addWindowListener(new WindowAdapter() {
@@ -67,6 +74,16 @@ public class MoneyTrackerApp extends JFrame {
                 performCleanupAndExit();
             }
         });
+    }
+
+    // Method to find the index of a tab by its title
+    private int findTabIndex(String title) {
+        for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+            if (tabbedPane.getTitleAt(i).equals(title)) {
+                return i;
+            }
+        }
+        return -1; // Tab not found
     }
     private void performCleanupAndExit() {
         // Perform any cleanup operations here...
@@ -78,17 +95,11 @@ public class MoneyTrackerApp extends JFrame {
     private void initComponents() {
         tabbedPane = new JTabbedPane();
 
-        showPossibilitiesPanel = new ShowPossibilitiesPanel();
-        tabbedPane.addTab("Show Possibilities", showPossibilitiesPanel);
+        addPersonToDatabasePanel = new AddPersonToDatabasePanel(moneyTrackerController);
+        tabbedPane.addTab("Add Person to Database", addPersonToDatabasePanel);
 
         personsInDatabasePanel = new PersonsInDatabasePanel();
         tabbedPane.addTab("Persons in Database", personsInDatabasePanel);
-
-        personTicketsPanel = new PersonTicketsPanel(moneyTrackerController); // Pass controller to panel
-        tabbedPane.addTab("Person Tickets", personTicketsPanel);
-
-        addPersonToDatabasePanel = new AddPersonToDatabasePanel(moneyTrackerController);
-        tabbedPane.addTab("Add Person to Database", addPersonToDatabasePanel);
 
         // Add a new tab for ticket management
         ticketManagementPanel = new TicketManagementPanel(ticketFactoryMaker);
@@ -97,31 +108,6 @@ public class MoneyTrackerApp extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MoneyTrackerApp::new);
-    }
-}
-
-class ShowPossibilitiesPanel extends JPanel {
-    private JButton showPersonsInDatabaseButton;
-
-    private boolean showPersons = false;
-
-    public ShowPossibilitiesPanel() {
-        initComponents();
-    }
-
-    private void initComponents() {
-        setLayout(new BorderLayout());
-
-        showPersonsInDatabaseButton = new JButton("Show Persons in Database");
-        showPersonsInDatabaseButton.addActionListener(e -> {
-            showPersons = true;
-            JOptionPane.showMessageDialog(this, "Displaying persons in the database.");
-        });
-        add(showPersonsInDatabaseButton, BorderLayout.CENTER);
-    }
-
-    public boolean isShowPersons() {
-        return showPersons;
     }
 }
 
@@ -162,53 +148,6 @@ class PersonsInDatabasePanel extends JPanel {
         }
     }
 }
-
-class PersonTicketsPanel extends JPanel {
-    private JList<String> ticketList;
-    private DefaultListModel<String> ticketListModel;
-    private JLabel totalDebtLabel; // New label to display total debt
-
-    private MoneyTrackerController moneyTrackerController;
-
-    public PersonTicketsPanel(MoneyTrackerController moneyTrackerController) {
-        initComponents();
-        this.moneyTrackerController = moneyTrackerController;
-
-        // Listen for property change events from PersonDB
-        moneyTrackerController.addPersonDBObserver(evt -> {
-            if ("personAdded".equals(evt.getPropertyName())) {
-                // A new person was added, update the ticket list
-                Person newPerson = ((ArrayList<Person>) evt.getNewValue()).get(0);
-                updateTicketList(newPerson);
-            }
-        });
-    }
-
-    private void initComponents() {
-        setLayout(new BorderLayout());
-
-        ticketListModel = new DefaultListModel<>();
-        ticketList = new JList<>(ticketListModel);
-        JScrollPane scrollPane = new JScrollPane(ticketList);
-        add(scrollPane, BorderLayout.CENTER);
-
-        totalDebtLabel = new JLabel("Total Debt: $0.00");
-        add(totalDebtLabel, BorderLayout.SOUTH);
-    }
-
-    public void updateTicketList(Person person) {
-        ticketListModel.clear();
-        ArrayList<ITicket> tickets = moneyTrackerController.getTicketsForPerson(person);
-        double totalDebt = 0.0;
-        for (ITicket ticket : tickets) {
-            ticketListModel.addElement(ticket.getDescription());
-            totalDebt += ticket.getTotal(); // Accumulate total debt
-        }
-        totalDebtLabel.setText("Total Debt: $" + String.format("%.2f", totalDebt));
-    }
-}
-
-
 
 class AddPersonToDatabasePanel extends JPanel {
     private JButton addPersonButton;
@@ -252,7 +191,9 @@ class AddPersonToDatabasePanel extends JPanel {
             } catch (PersonAlreadyExists ex) {
                 throw ex; // Re-throw the exception
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
+                JOptionPane.showMessageDialog(this, "Person added to database: " + enteredName);
+                enterNameTextField.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please enter a name.");
@@ -265,6 +206,7 @@ class TicketManagementPanel extends JPanel {
     private DefaultListModel<ITicket> ticketListModel;
     private JList<ITicket> ticketList;
     private JTextArea ticketDetailsTextArea;
+    private MoneyTrackerController moneyTrackerController;
 
     public TicketManagementPanel(TicketFactoryMaker ticketFactoryMaker) {
         this.ticketFactoryMaker = ticketFactoryMaker;
@@ -297,7 +239,7 @@ class TicketManagementPanel extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 ITicket selectedTicket = ticketList.getSelectedValue();
                 if (selectedTicket != null) {
-                    ticketDetailsTextArea.setText(selectedTicket.toString());
+                    ticketDetailsTextArea.setText(selectedTicket.toOwnString());
                 }
             }
         });
@@ -381,25 +323,83 @@ class TicketManagementPanel extends JPanel {
 
 
         JButton createUnevenTicketButton = new JButton("Create Uneven Ticket");
-        /*createUnevenTicketButton.addActionListener(e -> {
+        createUnevenTicketButton.addActionListener(e -> {
             try {
+                // Get the list of people from the database
+                ArrayList<Person> peopleList = ticketFactoryMaker.getController().getAllPeople();
+
+                // Create an array of person names for display in the dialog
+                String[] personNames = peopleList.stream().map(Person::getName).toArray(String[]::new);
+
+                // Show a dialog to select the tag
+                String[] tagNames = Arrays.stream(Tag.values()).map(Enum::name).toArray(String[]::new);
+                String selectedTagName = (String) JOptionPane.showInputDialog(
+                        this,
+                        "Select the tag:",
+                        "Select Tag",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        tagNames,
+                        tagNames[0]);
+
+
+                // Convert the selected tag name to the Tag enum
+                Tag tag = Tag.valueOf(selectedTagName);
+
+                // Prompt the user to input the description
+                String description = JOptionPane.showInputDialog(this, "Enter the description:");
+
+                // Prompt the user to input the payer's personal contribution
+                String payerContributionInput = JOptionPane.showInputDialog(this, "Enter the payer's personal contribution:");
+                double payerPersonalContribution = Double.parseDouble(payerContributionInput);
+
+                // Validate payer's personal contribution
+                if (payerPersonalContribution < 0) {
+                    throw new IllegalArgumentException("Payer's personal contribution cannot be negative.");
+                }
+
+                // Create a HashMap to hold the repayment map
+                HashMap<Person, Double> repaymentMap = new HashMap<>();
+
+                // Loop through each person to input their repayment amount
+                for (Person person : peopleList) {
+                    String repaymentInput = JOptionPane.showInputDialog(this, "Enter the repayment amount for " + person.getName() + ":");
+                    double repaymentAmount = Double.parseDouble(repaymentInput);
+                    if (repaymentAmount < 0) {
+                        throw new IllegalArgumentException("Repayment amount for " + person.getName() + " cannot be negative.");
+                    }
+                    repaymentMap.put(person, repaymentAmount);
+                }
+
+                // Create the TicketFactoryUnevenSplit instance
                 TicketFactoryUnevenSplit unevenSplitFactory = ticketFactoryMaker.makeUnevenTicketFactory();
-                // Assuming you have access to the necessary information to create an uneven ticket
-                HashMap<Person, Double> repaymentMap = ...; // Get the repayment map
-                double payerPersonalContribution = ...; // Get the payer's personal contribution
-                String description = ...; // Get the description
-                unevenSplitFactory.makeUnevenTicket(repaymentMap, payerPersonalContribution, description);
+
+                // Use the unevenSplitFactory to create an uneven ticket
+                unevenSplitFactory.makeUnevenTicket(peopleList.get(0), payerPersonalContribution, repaymentMap, tag, description);
+
                 // Handle successful creation of the uneven ticket
                 JOptionPane.showMessageDialog(this, "Uneven ticket created successfully.");
+            } catch (NumberFormatException ex) {
+                // Handle invalid number format input
+                JOptionPane.showMessageDialog(this, "Invalid input. Please enter valid numbers.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalArgumentException ex) {
+                // Handle invalid tag selection or negative amounts
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
-                // Handle exception
+                // Handle other exceptions
+                ex.printStackTrace(); // Print the stack trace to identify the specific exception
                 JOptionPane.showMessageDialog(this, "An error occurred while creating the uneven ticket.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        });*/
+        });
+
+
 
         buttonPanel.add(createEvenTicketButton);
         buttonPanel.add(createUnevenTicketButton);
         add(buttonPanel, BorderLayout.SOUTH);
+
+        // Load tickets from ticketsDB when the panel is created
+        updateTicketList(ticketFactoryMaker.getController().getTicketsDB().getAllTickets());
     }
     // Method to update ticket list in the UI
     public void updateTicketList(ArrayList<ITicket> tickets) {

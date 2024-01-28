@@ -48,6 +48,11 @@ public abstract class TicketDecorator implements ITicket {
     }
 
     @Override
+    public String toOwnString() {
+        return decoratedTicket.toOwnString();
+    }
+
+    @Override
     public void setDate(Date date) {decoratedTicket.setDate(date);}
 
     @Override

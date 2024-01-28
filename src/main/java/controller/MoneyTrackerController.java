@@ -41,6 +41,12 @@ public class MoneyTrackerController {
 
         Person person = PersonFactory.makePerson(name);
         personDB.addEntry(person);
+
+        // Notify observers that a person has been added
+        ArrayList<Person> newValue = new ArrayList<>();
+        newValue.add(person);
+        personDB.getSupport().firePropertyChange("personAdded", null, newValue);
+
         return person;
     }
 
@@ -50,6 +56,12 @@ public class MoneyTrackerController {
 
     public void addTicket(Person person, ITicket ticket) {
         ticketsDB.addEntry(person, ticket);
+
+        // Notify observers that a ticket has been added
+        ArrayList<Object> newValue = new ArrayList<>();
+        newValue.add(person);
+        newValue.add(ticket);
+        ticketsDB.getSupport().firePropertyChange("ticketAdded", null, newValue);
     }
 
     public ArrayList<ITicket> getTicketsForPerson(Person person) {

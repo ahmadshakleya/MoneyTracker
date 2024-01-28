@@ -33,4 +33,11 @@ public class TaggedTicket extends TicketDecorator {
 
         return json;
     }
+
+    @Override
+    public String toOwnString() {
+        String text = super.toOwnString();
+        text += "Decorator: "+ this.tag.toString();
+        return text;
+    }
 }

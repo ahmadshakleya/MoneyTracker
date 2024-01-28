@@ -123,4 +123,8 @@ public class TicketsDB {
         }
         return allTickets;
     }
+
+    public PropertyChangeSupport getSupport() {
+        return support;
+    }
 }

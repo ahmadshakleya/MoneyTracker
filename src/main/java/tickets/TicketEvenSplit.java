@@ -13,7 +13,8 @@ public class TicketEvenSplit extends AbstractTicket {
 
     public TicketEvenSplit(double total, Set<Person> people, String description) {
         this.total = total;
-        double terugbetalingPerPersoon = total / (people.size() + 1);
+        //double terugbetalingPerPersoon = total / (people.size() + 1);
+        double terugbetalingPerPersoon = total / people.size();
         //terugbetalingPerPersoon = (double) Math.round(terugbetalingPerPersoon*100)/100;
         terugbetaling = (HashMap<Person, Double>) people.stream().collect(Collectors.toMap(person -> person, person -> terugbetalingPerPersoon));
         this.description = description;
@@ -26,5 +27,12 @@ public class TicketEvenSplit extends AbstractTicket {
         JSONObject jsonObject = super.toJson();
         jsonObject.put("type:", "even");
         return jsonObject;
+    }
+
+    @Override
+    public String toOwnString() {
+        String text = super.toOwnString();
+        text += "type: " + "even\n";
+        return text;
     }
 }

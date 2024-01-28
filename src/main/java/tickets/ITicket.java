@@ -29,4 +29,6 @@ public interface ITicket {
     void setIsPaid(boolean isPaid);
 
     JSONObject toJson();
+
+    String toOwnString();
 }
