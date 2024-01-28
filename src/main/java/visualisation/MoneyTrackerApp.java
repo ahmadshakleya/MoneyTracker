@@ -2,16 +2,10 @@ package visualisation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 import controller.MoneyTrackerController;
 import database.PersonDB;
@@ -104,6 +98,10 @@ public class MoneyTrackerApp extends JFrame {
         // Add a new tab for ticket management
         ticketManagementPanel = new TicketManagementPanel(ticketFactoryMaker);
         tabbedPane.addTab("Ticket Management", ticketManagementPanel);
+
+        // Add the new tab for person debts
+        PersonDebtsPanel personDebtsPanel = new PersonDebtsPanel(moneyTrackerController);
+        tabbedPane.addTab("Person Debts", personDebtsPanel);
     }
 
     public static void main(String[] args) {
@@ -166,6 +164,28 @@ class AddPersonToDatabasePanel extends JPanel {
         enterNameTextField = new JTextField(20);
         add(new JLabel("Enter Name:"), BorderLayout.WEST);
         add(enterNameTextField, BorderLayout.CENTER);
+
+        // Add a key listener to the text field
+        enterNameTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+                        addPersonToDB();
+                    } catch (PersonAlreadyExists ex) {
+                        JOptionPane.showMessageDialog(AddPersonToDatabasePanel.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(AddPersonToDatabasePanel.this, "An error occurred while adding the person to the database.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
 
         addPersonButton = new JButton("Add Person");
         addPersonButton.addActionListener(e -> {
@@ -409,4 +429,51 @@ class TicketManagementPanel extends JPanel {
         }
     }
 
+}
+
+class PersonDebtsPanel extends JPanel {
+    private JLabel titleLabel;
+    private JList<String> personDebtsList;
+    private DefaultListModel<String> personDebtsListModel;
+
+    private MoneyTrackerController moneyTrackerController;
+
+    public PersonDebtsPanel(MoneyTrackerController moneyTrackerController) {
+        this.moneyTrackerController = moneyTrackerController;
+        initComponents();
+        moneyTrackerController.addTicketsDBObserver(evt -> updatePersonDebtsList());
+    }
+
+    private void initComponents() {
+        setLayout(new BorderLayout());
+
+        titleLabel = new JLabel("Person Debts:");
+        add(titleLabel, BorderLayout.NORTH);
+
+        personDebtsListModel = new DefaultListModel<>();
+        personDebtsList = new JList<>(personDebtsListModel);
+        JScrollPane scrollPane = new JScrollPane(personDebtsList);
+        add(scrollPane, BorderLayout.CENTER);
+
+        updatePersonDebtsList();
+    }
+
+    private void updatePersonDebtsList() {
+        personDebtsListModel.clear();
+        // Get the global bill
+        HashMap<Person, HashMap<Person, Double>> globalBill = moneyTrackerController.getGlobalBill();
+        // Iterate over each person and their debts
+        for (Map.Entry<Person, HashMap<Person, Double>> entry : globalBill.entrySet()) {
+            Person person = entry.getKey();
+            HashMap<Person, Double> debts = entry.getValue();
+            StringBuilder debtString = new StringBuilder(person.getName() + " owes: ");
+            // Append each creditor and the amount owed
+            for (Map.Entry<Person, Double> debtEntry : debts.entrySet()) {
+                Person creditor = debtEntry.getKey();
+                Double amountOwed = debtEntry.getValue();
+                debtString.append(creditor.getName()).append(" - ").append(amountOwed).append(", ");
+            }
+            personDebtsListModel.addElement(debtString.toString());
+        }
+    }
 }
