@@ -200,13 +200,4 @@ public class MoneyTrackerController {
             e.printStackTrace();
         }
     }
-
-
-    public PersonDB getPersonDB() {
-        return personDB;
-    }
-
-    public TicketsDB getTicketsDB() {
-        return ticketsDB;
-    }
 }

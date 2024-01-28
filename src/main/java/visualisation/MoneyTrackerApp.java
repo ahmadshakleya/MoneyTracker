@@ -9,6 +9,7 @@ import java.util.*;
 
 import controller.MoneyTrackerController;
 import database.PersonDB;
+import database.TicketsDB;
 import exceptions.PersonAlreadyExists;
 import exceptions.ticketException;
 import factory.PersonFactory;
@@ -58,7 +59,7 @@ public class MoneyTrackerApp extends JFrame {
                 if (index != -1) {
                     // Get the TicketManagementPanel and update the ticket list
                     TicketManagementPanel ticketManagementPanel = (TicketManagementPanel) tabbedPane.getComponentAt(index);
-                    ticketManagementPanel.updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+                    ticketManagementPanel.updateTicketList(TicketsDB.getInstance().getAllTickets());
                 } else {
                     System.err.println("Ticket Management tab not found.");
                 }
@@ -97,7 +98,7 @@ public class MoneyTrackerApp extends JFrame {
     }
 
     public void removeTicket(ITicket ticket) {
-        moneyTrackerController.getTicketsDB().removeTicket(ticket);
+        TicketsDB.getInstance().removeTicket(ticket);
     }
 
 
@@ -111,7 +112,7 @@ public class MoneyTrackerApp extends JFrame {
         JOptionPane.showMessageDialog(this, "Data loaded successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         // Update the person list in the personsInDatabasePanel
         personsInDatabasePanel.updatePersonList();
-        ticketManagementPanel.updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+        ticketManagementPanel.updateTicketList(TicketsDB.getInstance().getAllTickets());
         personDebtsPanel.updatePersonDebtsList();
     }
 
@@ -504,7 +505,7 @@ class TicketManagementPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Load tickets from ticketsDB when the panel is created
-        updateTicketList(ticketFactoryMaker.getController().getTicketsDB().getAllTickets());
+        updateTicketList(TicketsDB.getInstance().getAllTickets());
 
         JButton removeTicketButton = new JButton("Remove Ticket");
         removeTicketButton.addActionListener(e -> removeSelectedTicket());
@@ -524,9 +525,9 @@ class TicketManagementPanel extends JPanel {
             int confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this ticket?", "Confirm Removal", JOptionPane.YES_NO_OPTION);
             if (confirmation == JOptionPane.YES_OPTION) {
                 // Remove the selected ticket from the database
-                moneyTrackerController.getTicketsDB().removeTicket(selectedTicket);
+                TicketsDB.getInstance().removeTicket(selectedTicket);
                 // Update the UI
-                updateTicketList(moneyTrackerController.getTicketsDB().getAllTickets());
+                updateTicketList(TicketsDB.getInstance().getAllTickets());
                 // Clear ticket details
                 ticketDetailsTextArea.setText("");
             }
