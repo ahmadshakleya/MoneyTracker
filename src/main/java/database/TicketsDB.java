@@ -74,7 +74,6 @@ public class TicketsDB {
     }
 
     public void reset(){
-        support = new PropertyChangeSupport(this);
         this.db = new HashMap<>();
     }
 

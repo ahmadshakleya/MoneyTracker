@@ -15,8 +15,6 @@ public class ShowPossibilities extends JFrame {
     public ShowPossibilities() {
         setContentPane(PossibilitiesPanel);
 
-        //PossibilitiesPanel.add(Title);
-
         setTitle("Welcome");
         setSize(450, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -15,6 +15,7 @@ import factory.PersonFactory;
 import factory.TicketFactoryEvenSplit;
 import factory.TicketFactoryMaker;
 import factory.TicketFactoryUnevenSplit;
+import observers.PersonUpdaters;
 import person.Person;
 import tag.Tag;
 import tickets.ITicket;
@@ -39,6 +40,9 @@ public class MoneyTrackerApp extends JFrame {
         // Initialize MoneyTrackerController and TicketFactoryMaker
         moneyTrackerController = new MoneyTrackerController();
         ticketFactoryMaker = new TicketFactoryMaker(moneyTrackerController);
+
+        PersonUpdaters personUpdaters = new PersonUpdaters();
+        moneyTrackerController.addTicketsDBObserver(personUpdaters);
 
         initComponents();
         setContentPane(tabbedPane);
@@ -89,6 +93,7 @@ public class MoneyTrackerApp extends JFrame {
 
         // Add the panel to the tabbed pane
         tabbedPane.addTab("Data Management", dataManagementPanel);
+
     }
 
     public void removeTicket(ITicket ticket) {

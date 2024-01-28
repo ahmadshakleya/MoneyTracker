@@ -15,12 +15,15 @@ import java.util.List;
 public class PersonUpdaters implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        ArrayList<Object> list = (ArrayList<Object>) propertyChangeEvent.getNewValue();
+
+        if (propertyChangeEvent.getPropertyName().equals("ticketAdded")) {
+            ArrayList<Object> list = (ArrayList<Object>) propertyChangeEvent.getNewValue();
 
 
-        TaggedTicket ticket = (TaggedTicket) list.get(1);
-        Person personWhoPaid = (Person) list.get(0);
+            TaggedTicket ticket = (TaggedTicket) list.get(1);
+            Person personWhoPaid = (Person) list.get(0);
 
-        personWhoPaid.addExpense(ticket.getTotal());
+            personWhoPaid.addExpense(ticket.getTotal());
+        }
     }
 }
